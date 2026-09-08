@@ -1,0 +1,8 @@
+# What CI installs. Kept minimal so the test job is fast.
+numpy>=1.26
+pandas>=2.2
+pyyaml>=6.0
+transformers>=4.40
+tokenizers>=0.19
+pytest>=8.0
+bm25s>=0.2

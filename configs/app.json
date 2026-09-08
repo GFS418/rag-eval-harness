@@ -1,0 +1,12 @@
+{
+  "split": "test",
+  "chunk": "fixed-256-0",
+  "embedder": "bge-small",
+  "hybrid": true,
+  "rerank": true,
+  "reranker": "minilm-ce",
+  "top_k": 5,
+  "model": "sonnet-5",
+  "daily_cap_usd": 1.0,
+  "_note": "provisional; replaced by the dev-selected config once the grid finishes"
+}

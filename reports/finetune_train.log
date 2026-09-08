@@ -1,0 +1,142 @@
+/Users/graysonschultz/projects/rag-eval-harness/src/finetune/train.py:36: DeprecationWarning: Importing from 'sentence_transformers.losses' is deprecated and will be removed in a future version. Please use 'sentence_transformers.sentence_transformer.losses' instead.
+  from sentence_transformers import (SentenceTransformer, SentenceTransformerTrainer,
+3560 triples; base=BAAI/bge-small-en-v1.5
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 6785.80it/s]
+The `warmup_ratio` argument is deprecated in Transformers v5+, and will also be removed from Sentence Transformers once support for Transformers v4 is dropped. Since you're using Transformers v5+, please use `warmup_steps` (as a float) to specify the warmup ratio instead.
+Computing widget examples:   0%|          | 0/1 [00:00<?, ?example/s]                                                                       0%|          | 0/224 [00:00<?, ?it/s]/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/torch/utils/data/dataloader.py:759: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+  0%|          | 1/224 [00:06<24:34,  6.61s/it]Traceback (most recent call last):
+  File "/Users/graysonschultz/projects/rag-eval-harness/src/finetune/train.py", line 76, in <module>
+    main()
+    ~~~~^^
+  File "/Users/graysonschultz/projects/rag-eval-harness/src/finetune/train.py", line 65, in main
+    trainer.train()
+    ~~~~~~~~~~~~~^^
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/transformers/trainer.py", line 1458, in train
+    return inner_training_loop(
+        args=args,
+    ...<2 lines>...
+        ignore_keys_for_eval=ignore_keys_for_eval,
+    )
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/transformers/trainer.py", line 1540, in _inner_training_loop
+    self._run_epoch(
+    ~~~~~~~~~~~~~~~^
+        model=model,
+        ^^^^^^^^^^^^
+    ...<9 lines>...
+        steps_trained_in_current_epoch=steps_trained_in_current_epoch,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/transformers/trainer.py", line 1768, in _run_epoch
+    tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/transformers/trainer.py", line 1940, in training_step
+    loss = self.compute_loss(model, inputs, num_items_in_batch=num_items_in_batch)
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/sentence_transformers/base/trainer.py", line 507, in compute_loss
+    loss = loss_fn(features, labels)
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/sentence_transformers/sentence_transformer/losses/multiple_negatives_ranking.py", line 234, in forward
+    embeddings = embed_columns(self.model, sentence_features)
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/sentence_transformers/base/losses/merged_forward.py", line 194, in embed_columns
+    *embed_columns(model, features_list[1:], separate_first=False),
+     ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/sentence_transformers/base/losses/merged_forward.py", line 199, in embed_columns
+    embeddings = model(merged)["sentence_embedding"]
+                 ~~~~~^^^^^^^^
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/sentence_transformers/base/model.py", line 569, in forward
+    input = module(input, **module_kwargs)
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/sentence_transformers/base/modules/transformer.py", line 1650, in forward
+    model_output = model_method(**filtered_kwargs)
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/transformers/utils/generic.py", line 1068, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/transformers/utils/output_capturing.py", line 262, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/transformers/models/bert/modeling_bert.py", line 669, in forward
+    encoder_outputs = self.encoder(
+        embedding_output,
+    ...<6 lines>...
+        **kwargs,
+    )
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/transformers/models/bert/modeling_bert.py", line 436, in forward
+    hidden_states = layer_module(
+        hidden_states,
+    ...<4 lines>...
+        **kwargs,
+    )
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/transformers/modeling_layers.py", line 114, in __call__
+    return super().__call__(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/transformers/models/bert/modeling_bert.py", line 383, in forward
+    self_attention_output, _ = self.attention(
+                               ~~~~~~~~~~~~~~^
+        hidden_states,
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/transformers/models/bert/modeling_bert.py", line 314, in forward
+    attention_output, attn_weights = self.self(
+                                     ~~~~~~~~~^
+        hidden_states,
+        ^^^^^^^^^^^^^^
+    ...<3 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/transformers/models/bert/modeling_bert.py", line 192, in forward
+    attn_output, attn_weights = attention_interface(
+                                ~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<6 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "/Users/graysonschultz/projects/rag-eval-harness/venv/lib/python3.14/site-packages/transformers/integrations/sdpa_attention.py", line 158, in sdpa_attention_forward
+    attn_output = torch.nn.functional.scaled_dot_product_attention(
+        query,
+    ...<6 lines>...
+        **sdpa_kwargs,
+    )
+RuntimeError: MPS backend out of memory (MPS allocated: 30.16 GiB, other allocations: 1.88 MiB, max allowed: 30.19 GiB). Tried to allocate 768.00 MiB on shared pool. Use PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.0 to disable upper limit for memory allocations (may cause system failure).
+  0%|          | 1/224 [00:14<55:00, 14.80s/it]
+train exit: 1
