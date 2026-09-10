@@ -1,0 +1,47 @@
+Corpus(qasper/dev: 281 docs, 13266 paragraphs, 1005 questions) -> retrieving for 1005 questions; 886 answerable with gold paragraphs
+[paragraph-256-0] 7550 chunks; 880/886 answerable questions have >=1 gold chunk
+  [bge-small] index built in 1s
+    paragraph-256-0_bge-small_dense_rerank-minilm-ce_doc    R@5=0.637 hit@5=0.756 MRR=0.532 R@1024tok=0.617  147.0 ms/q
+    paragraph-256-0_bge-small_hybrid_rerank-minilm-ce_doc   R@5=0.637 hit@5=0.756 MRR=0.531 R@1024tok=0.617  6.7 ms/q
+Corpus(qasper/dev: 281 docs, 13266 paragraphs, 1005 questions) -> retrieving for 1005 questions; 886 answerable with gold paragraphs
+[paragraph-256-0] 7550 chunks; 880/886 answerable questions have >=1 gold chunk
+  [bge-small] index built in 1s
+    paragraph-256-0_bge-small_hybrid_rerank-bge-reranker-base_doc R@5=0.538 hit@5=0.651 MRR=0.423 R@1024tok=0.533  992.1 ms/q
+Corpus(qasper/test: 416 docs, 19817 paragraphs, 1451 questions) -> retrieving for 1451 questions; 1297 answerable with gold paragraphs
+[fixed-128-0] 16072 chunks; 1241/1297 answerable questions have >=1 gold chunk
+  [bge-small] index built in 117s
+    fixed-128-0_bge-small_dense_norerank_doc                R@5=0.467 hit@5=0.641 MRR=0.442 R@1024tok=0.599  0.0 ms/q
+    fixed-128-0_bge-small_dense_norerank_open-titled        R@5=0.198 hit@5=0.307 MRR=0.202 R@1024tok=0.256  0.6 ms/q
+    fixed-128-0_bge-small_hybrid_norerank_doc               R@5=0.473 hit@5=0.641 MRR=0.437 R@1024tok=0.593  0.1 ms/q
+    fixed-128-0_bge-small_hybrid_norerank_open-titled       R@5=0.202 hit@5=0.314 MRR=0.198 R@1024tok=0.274  2.0 ms/q
+[fixed-256-0] 8142 chunks; 1297/1297 answerable questions have >=1 gold chunk
+  [bge-small] index built in 124s
+    fixed-256-0_bge-small_dense_norerank_doc                R@5=0.619 hit@5=0.769 MRR=0.528 R@1024tok=0.558  0.0 ms/q
+    fixed-256-0_bge-small_dense_norerank_open-titled        R@5=0.333 hit@5=0.455 MRR=0.292 R@1024tok=0.288  0.1 ms/q
+    fixed-256-0_bge-small_hybrid_norerank_doc               R@5=0.639 hit@5=0.790 MRR=0.524 R@1024tok=0.559  0.1 ms/q
+    fixed-256-0_bge-small_hybrid_norerank_open-titled       R@5=0.343 hit@5=0.465 MRR=0.298 R@1024tok=0.300  0.8 ms/q
+[fixed-256-32] 9222 chunks; 1297/1297 answerable questions have >=1 gold chunk
+  [bge-small] index built in 108s
+    fixed-256-32_bge-small_dense_norerank_doc               R@5=0.588 hit@5=0.776 MRR=0.532 R@1024tok=0.520  0.0 ms/q
+    fixed-256-32_bge-small_dense_norerank_open-titled       R@5=0.307 hit@5=0.462 MRR=0.298 R@1024tok=0.266  0.1 ms/q
+    fixed-256-32_bge-small_hybrid_norerank_doc              R@5=0.588 hit@5=0.769 MRR=0.546 R@1024tok=0.529  0.1 ms/q
+    fixed-256-32_bge-small_hybrid_norerank_open-titled      R@5=0.323 hit@5=0.487 MRR=0.302 R@1024tok=0.275  0.5 ms/q
+[fixed-512-0] 4183 chunks; 1297/1297 answerable questions have >=1 gold chunk
+  [bge-small] index built in 73s
+    fixed-512-0_bge-small_dense_norerank_doc                R@5=0.765 hit@5=0.872 MRR=0.596 R@1024tok=0.468  0.0 ms/q
+    fixed-512-0_bge-small_dense_norerank_open-titled        R@5=0.483 hit@5=0.609 MRR=0.405 R@1024tok=0.287  0.1 ms/q
+    fixed-512-0_bge-small_hybrid_norerank_doc               R@5=0.801 hit@5=0.894 MRR=0.621 R@1024tok=0.495  0.1 ms/q
+    fixed-512-0_bge-small_hybrid_norerank_open-titled       R@5=0.530 hit@5=0.655 MRR=0.434 R@1024tok=0.298  0.3 ms/q
+[paragraph-256-0] 10863 chunks; 1297/1297 answerable questions have >=1 gold chunk
+  [bge-small] index built in 86s
+    paragraph-256-0_bge-small_dense_norerank_doc            R@5=0.585 hit@5=0.739 MRR=0.532 R@1024tok=0.564  0.0 ms/q
+    paragraph-256-0_bge-small_dense_norerank_open-titled    R@5=0.307 hit@5=0.435 MRR=0.281 R@1024tok=0.296  0.3 ms/q
+    paragraph-256-0_bge-small_hybrid_norerank_doc           R@5=0.622 hit@5=0.780 MRR=0.529 R@1024tok=0.600  0.1 ms/q
+    paragraph-256-0_bge-small_hybrid_norerank_open-titled   R@5=0.315 hit@5=0.455 MRR=0.284 R@1024tok=0.298  0.6 ms/q
+[paragraph-512-0] 4854 chunks; 1297/1297 answerable questions have >=1 gold chunk
+  [bge-small] index built in 88s
+    paragraph-512-0_bge-small_dense_norerank_doc            R@5=0.749 hit@5=0.856 MRR=0.601 R@1024tok=0.460  0.0 ms/q
+    paragraph-512-0_bge-small_dense_norerank_open-titled    R@5=0.453 hit@5=0.587 MRR=0.379 R@1024tok=0.258  0.1 ms/q
+    paragraph-512-0_bge-small_hybrid_norerank_doc           R@5=0.782 hit@5=0.892 MRR=0.613 R@1024tok=0.478  0.1 ms/q
+    paragraph-512-0_bge-small_hybrid_norerank_open-titled   R@5=0.497 hit@5=0.636 MRR=0.402 R@1024tok=0.272  0.3 ms/q
+chain done

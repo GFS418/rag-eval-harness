@@ -1,0 +1,32 @@
+{
+ "name": "rag__fixed-512-0_bge-small_hybrid_norerank_doc__k5",
+ "model": "sonnet-5",
+ "split": "test",
+ "mode": "rag",
+ "n": 400,
+ "n_answerable": 302,
+ "n_unanswerable": 98,
+ "errors": 0,
+ "abstain_precision": 0.7195121951219512,
+ "abstain_recall": 0.6020408163265306,
+ "abstain_f1": 0.6555555555555556,
+ "abstain_rate": 0.205,
+ "hallucination_rate": 0.7825,
+ "cost_usd_total": 4.340898,
+ "judge_cost_usd": 0.907005,
+ "judge_errors": 0,
+ "mean_input_tokens": 4275.485,
+ "mean_latency_s": null,
+ "token_f1": 0.4403168337127202,
+ "judge_correct": 0.8064516129032258,
+ "judge_correct_or_partial": 0.910394265232975,
+ "nli_faithful": 0.015723270440251572,
+ "nli_frac_supported": 0.08140161725067384,
+ "retrieval_hit": 0.8789808917197452,
+ "decomposition": {
+  "hit=True|correct=1.0": 207,
+  "hit=True|correct=0.0": 43,
+  "hit=False|correct=1.0": 18,
+  "hit=False|correct=0.0": 11
+ }
+}

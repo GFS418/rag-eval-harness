@@ -33,6 +33,7 @@ def main() -> None:
     ap.add_argument("--gold-threshold", type=float, default=0.5)
     ap.add_argument("--no-judge", action="store_true", help="skip Opus judge (lexical + NLI only)")
     ap.add_argument("--no-nli", action="store_true")
+    ap.add_argument("--no-faith-judge", action="store_true", help="skip the Opus faithfulness judge (keep correctness + NLI)")
     args = ap.parse_args()
 
     gen = pd.read_parquet(args.generation)
@@ -74,7 +75,7 @@ def main() -> None:
             corr_reqs[row["question_id"]] = correctness_request(
                 row["question_id"], q.text, q.reference_answers, row["answer"], f"{model}|{name}")
         cl = claims_of(row)
-        if cl and mode != "closed-book":
+        if cl and mode != "closed-book" and not args.no_faith_judge:
             faith_reqs[row["question_id"]] = faithfulness_request(
                 row["question_id"], q.text, passages_of(row), cl, f"{model}|{name}")
     judge = {}
@@ -133,7 +134,9 @@ def main() -> None:
                "n_answerable": int(len(ans)), "n_unanswerable": int(df["unanswerable"].sum()),
                "errors": int(df["error"].notna().sum()),
                **abstention_metrics(outcomes),
-               "cost_usd_total": float(df["cost_usd"].sum()), "mean_input_tokens": float(df["input_tokens"].mean()),
+               "cost_usd_total": float(df["cost_usd"].sum()),
+               "judge_cost_usd": float(sum(r.cost_usd for r in judge.values())),
+               "judge_errors": int(sum(1 for r in judge.values() if r.error)), "mean_input_tokens": float(df["input_tokens"].mean()),
                "mean_latency_s": float(df["latency_s"].mean()) if df["latency_s"].notna().any() else None}
     for col in ["token_f1", "judge_correct", "judge_correct_or_partial", "judge_faithful", "judge_citation_precision",
                 "nli_faithful", "nli_frac_supported", "retrieval_hit"]:

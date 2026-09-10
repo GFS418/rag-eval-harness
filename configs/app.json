@@ -1,12 +1,12 @@
 {
   "split": "test",
-  "chunk": "fixed-256-0",
-  "embedder": "bge-small",
-  "hybrid": true,
-  "rerank": true,
+  "chunk": "paragraph-256-0",
+  "embedder": "bge-small-ft",
+  "hybrid": false,
+  "rerank": false,
   "reranker": "minilm-ce",
   "top_k": 5,
   "model": "sonnet-5",
   "daily_cap_usd": 1.0,
-  "_note": "provisional; replaced by the dev-selected config once the grid finishes"
+  "_note": "selected on dev, confirmed on test: fine-tuned bge-small, paragraph-256 chunks, dense only (hybrid and reranking both hurt on top of the fine-tuned model)"
 }

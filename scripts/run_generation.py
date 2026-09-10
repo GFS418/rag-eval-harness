@@ -37,11 +37,16 @@ def main() -> None:
     ap.add_argument("--effort", default="medium")
     ap.add_argument("--include-unanswerable", action="store_true", default=True)
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--sample", default=None, help="JSON with question_ids (from make_eval_sample.py)")
+    ap.add_argument("--tag", default="", help="suffix for the output file name")
     ap.add_argument("--sync", action="store_true", help="sequential calls instead of a batch")
     args = ap.parse_args()
 
     corpus = load_qasper(args.split)
     questions = [q for q in corpus.questions if q.unanswerable or q.gold_para_ids]
+    if args.sample:
+        keep = set(json.loads(Path(args.sample).read_text())["question_ids"])
+        questions = [q for q in questions if q.question_id in keep]
     if args.limit:
         questions = questions[:args.limit]
     para_text = {p.para_id: p for d in corpus.documents.values() for p in d.paragraphs}
@@ -94,7 +99,7 @@ def main() -> None:
     df = pd.DataFrame(rows)
     out = Path("data/processed/generation") / args.split / args.model
     out.mkdir(parents=True, exist_ok=True)
-    path = out / f"{args.mode}__{args.config}__k{args.top_k}.parquet"
+    path = out / f"{args.mode}__{args.config}__k{args.top_k}{args.tag}.parquet"
     df.to_parquet(path, index=False)
     print(f"wrote {path}: {len(df)} rows, {df['error'].notna().sum()} errors, "
           f"abstain rate {df['abstain'].mean():.2f}, est. cost ${df['cost_usd'].sum():.2f}")

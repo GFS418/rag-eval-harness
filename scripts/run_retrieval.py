@@ -27,11 +27,12 @@ from chunking import ChunkConfig, chunk_corpus, default_tokenizer, paragraph_tok
 from corpus.qasper import load_qasper  # noqa: E402
 from embed import get_embedder  # noqa: E402
 from eval.gold import gold_chunk_ids, group_chunks  # noqa: E402
-from eval.retrieval_metrics import all_metrics  # noqa: E402
+from eval.retrieval_metrics import all_metrics, hit_at_budget, recall_at_budget  # noqa: E402
 from rerank import Reranker  # noqa: E402
 from retrieval import RetrievalConfig, Retriever  # noqa: E402
 
 KS = (1, 3, 5, 10)
+BUDGETS = (512, 1024, 2048)   # context tokens handed to the generator
 
 
 def query_text(q, corpus, scope: str) -> str:
@@ -82,6 +83,7 @@ def main() -> None:
         ccfg = parse_chunk(chunk_s)
         chunks = chunk_corpus(corpus.documents.values(), ccfg, tok)
         by_doc = group_chunks(chunks)
+        n_tok = {c.chunk_id: c.n_tokens for c in chunks}
         gold = {q.question_id: (frozenset() if q.unanswerable else
                                 gold_chunk_ids(q, by_doc, para_tokens, args.gold_threshold))
                 for q in questions}
@@ -106,16 +108,19 @@ def main() -> None:
                 for q, qt, qv in zip(questions, q_texts, q_vecs):
                     hits = retriever.retrieve(q.question_id, qt, q.doc_id, cfg, qv)
                     ranked = [h.chunk.chunk_id for h in hits]
-                    rows.extend((q.question_id, h.rank, h.chunk.chunk_id, h.score) for h in hits)
+                    rows.extend((q.question_id, h.rank, h.chunk.chunk_id, h.score, h.chunk.n_tokens) for h in hits)
                     if gold[q.question_id]:
                         m = all_metrics(ranked, gold[q.question_id], KS)
+                        for b in BUDGETS:
+                            m[f"recall@{b}tok"] = recall_at_budget(ranked, gold[q.question_id], n_tok, b)
+                            m[f"hit@{b}tok"] = hit_at_budget(ranked, gold[q.question_id], n_tok, b)
                         m["question_id"] = q.question_id
                         m["n_gold"] = len(gold[q.question_id])
                         per_q.append(m)
                 elapsed = time.time() - t0
                 if reranker:
                     reranker.flush()
-                pd.DataFrame(rows, columns=["question_id", "rank", "chunk_id", "score"]).to_parquet(
+                pd.DataFrame(rows, columns=["question_id", "rank", "chunk_id", "score", "n_tokens"]).to_parquet(
                     out_rank / f"{cfg.name}.parquet", index=False)
                 df = pd.DataFrame(per_q)
                 df.to_parquet(out_rep / f"{cfg.name}.per_question.parquet", index=False)
@@ -126,7 +131,7 @@ def main() -> None:
                            **means}
                 rep_path.write_text(json.dumps(summary, indent=1))
                 print(f"    {cfg.name:55s} R@5={means['recall@5']:.3f} hit@5={means['hit@5']:.3f} "
-                      f"MRR={means['mrr']:.3f} nDCG@10={means['ndcg@10']:.3f}  {1000*elapsed/len(questions):.1f} ms/q", flush=True)
+                      f"MRR={means['mrr']:.3f} R@1024tok={means['recall@1024tok']:.3f}  {1000*elapsed/len(questions):.1f} ms/q", flush=True)
 
 
 if __name__ == "__main__":

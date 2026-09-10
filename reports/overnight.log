@@ -1,0 +1,2116 @@
+[08:39:27] === overnight start (cap $16) ===
+[08:39:27] $ ./venv/bin/python scripts/run_generation.py --split test --config paragraph-256-0_bge-small-ft_dense_norerank_doc --model sonnet-5 --mode rag --top-k 5 --effort low --sample data/processed/test_sample_400.json --limit 30 --sync --tag __smoke
+30 requests (rag, sonnet-5, paragraph-256-0_bge-small-ft_dense_norerank_doc)
+wrote data/processed/generation/test/sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5__smoke.parquet: 30 rows, 0 errors, abstain rate 0.20, est. cost $0.20
+[08:39:33] $ ./venv/bin/python scripts/run_judge.py --split test --generation data/processed/generation/test/sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5__smoke.parquet --no-judge
+{
+ "name": "rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5__smoke",
+ "model": "sonnet-5",
+ "split": "test",
+ "mode": "rag",
+ "n": 30,
+ "n_answerable": 23,
+ "n_unanswerable": 7,
+ "errors": 0,
+ "abstain_precision": 0.3333333333333333,
+ "abstain_recall": 0.2857142857142857,
+ "abstain_f1": 0.30769230769230765,
+ "abstain_rate": 0.2,
+ "hallucination_rate": 0.7,
+ "cost_usd_total": 0.204074,
+ "judge_cost_usd": 0.0,
+ "judge_errors": 0,
+ "mean_input_tokens": 2096.4,
+ "mean_latency_s": 3.9863094409306843,
+ "token_f1": 0.40516368680026116,
+ "nli_faithful": 0.125,
+ "nli_frac_supported": 0.4527777777777778,
+ "retrieval_hit": 0.76
+}
+smoke: n=30 mean input=2096 mean output=261 tokens (output includes thinking)
+  A rag ft (sonnet)                      $ 1.36
+  B rag base (sonnet)                    $ 1.36
+  D rag ft (haiku)                       $ 0.68
+  E closed-book (sonnet)                 $ 0.62
+  F oracle (sonnet)                      $ 1.03
+  correctness judge x5 arms (opus)       $ 4.46
+  faithfulness judge, primary arm (opus) $ 3.06
+  already spent                          $ 0.00
+PROJECTED TOTAL (core) $12.57  (cap $16.00)
+  opt: faithfulness judge on base arm    $ 3.06  (runs only if still under cap)
+  opt: faithfulness judge on haiku arm   $ 3.06  (runs only if still under cap)
+  opt: C rag fixed-512 gen + correctness $ 3.59  (runs only if still under cap)
+[08:39:50] spend check
+claude-sonnet-5        calls=   30 (batch     0)  in=   62,892  out=   7,829  list=$0.20  est=$0.20
+TOTAL est $0.20  (cap $16.00)
+[08:39:50] $ ./venv/bin/python scripts/run_generation.py --split test --config paragraph-256-0_bge-small-ft_dense_norerank_doc --model sonnet-5 --mode rag --top-k 5 --effort low --sample data/processed/test_sample_400.json
+400 requests (rag, sonnet-5, paragraph-256-0_bge-small-ft_dense_norerank_doc)
+batch: 30 cached, 370 to submit
+batch msgbatch_01WWXVurfE6LNqjmPTWDZach submitted
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+  in_progress: 370 processing, 0 done
+wrote data/processed/generation/test/sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5.parquet: 400 rows, 0 errors, abstain rate 0.19, est. cost $2.62
+[17:21:53] spend check
+claude-sonnet-5        calls=  400 (batch   370)  in=  865,293  out=  89,006  list=$2.62  est=$1.41
+TOTAL est $1.41  (cap $16.00)
+[17:21:53] $ ./venv/bin/python scripts/run_generation.py --split test --config paragraph-256-0_bge-small_hybrid_norerank_doc --model sonnet-5 --mode rag --top-k 5 --effort low --sample data/processed/test_sample_400.json
+400 requests (rag, sonnet-5, paragraph-256-0_bge-small_hybrid_norerank_doc)
+batch: 1 cached, 399 to submit
+batch msgbatch_018ER5h1VmuEGfMFFcYsnddG submitted
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+  in_progress: 399 processing, 0 done
+wrote data/processed/generation/test/sonnet-5/rag__paragraph-256-0_bge-small_hybrid_norerank_doc__k5.parquet: 400 rows, 0 errors, abstain rate 0.21, est. cost $2.59
+[17:46:20] $ ./venv/bin/python scripts/run_generation.py --split test --config paragraph-256-0_bge-small-ft_dense_norerank_doc --model haiku-4.5 --mode rag --top-k 5 --effort low --sample data/processed/test_sample_400.json
+400 requests (rag, haiku-4.5, paragraph-256-0_bge-small-ft_dense_norerank_doc)
+batch: 0 cached, 400 to submit
+batch msgbatch_01TU7HnPWSo7RCZJBJEhj9HJ submitted
+  in_progress: 400 processing, 0 done
+  in_progress: 400 processing, 0 done
+  in_progress: 400 processing, 0 done
+  in_progress: 400 processing, 0 done
+  in_progress: 400 processing, 0 done
+  in_progress: 400 processing, 0 done
+  in_progress: 400 processing, 0 done
+wrote data/processed/generation/test/haiku-4.5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5.parquet: 400 rows, 0 errors, abstain rate 0.28, est. cost $0.00
+[17:50:02] spend check
+claude-haiku-4-5-20251001 calls=  400 (batch   400)  in=  629,428  out=  51,333  list=$0.00  est=$0.00
+claude-sonnet-5        calls=  799 (batch   769)  in=1,737,487  out= 172,654  list=$5.20  est=$2.70
+TOTAL est $2.70  (cap $16.00)
+[17:50:02] $ ./venv/bin/python scripts/run_generation.py --split test --config none --model sonnet-5 --mode closed-book --effort low --sample data/processed/test_sample_400.json
+400 requests (closed-book, sonnet-5, none)
+batch: 0 cached, 400 to submit
+batch msgbatch_016jGaoGx82zW6ezwXHCzxZr submitted
+  in_progress: 400 processing, 0 done
+  in_progress: 400 processing, 0 done
+  in_progress: 400 processing, 0 done
+  in_progress: 400 processing, 0 done
+  in_progress: 400 processing, 0 done
+  in_progress: 400 processing, 0 done
+  in_progress: 400 processing, 0 done
+wrote data/processed/generation/test/sonnet-5/closed-book__none__k5.parquet: 400 rows, 0 errors, abstain rate 0.70, est. cost $0.74
+[17:53:37] $ ./venv/bin/python scripts/run_generation.py --split test --config paragraph-256-0 --model sonnet-5 --mode oracle --effort low --sample data/processed/test_sample_400.json
+314 requests (oracle, sonnet-5, paragraph-256-0)
+batch: 0 cached, 314 to submit
+batch msgbatch_016xnKz3qKNw6UA8FFk5aDHk submitted
+  in_progress: 314 processing, 0 done
+  in_progress: 314 processing, 0 done
+  in_progress: 314 processing, 0 done
+  in_progress: 314 processing, 0 done
+  in_progress: 314 processing, 0 done
+  in_progress: 314 processing, 0 done
+wrote data/processed/generation/test/sonnet-5/oracle__paragraph-256-0__k5.parquet: 314 rows, 0 errors, abstain rate 0.12, est. cost $1.33
+[17:56:41] spend check
+claude-haiku-4-5-20251001 calls=  400 (batch   400)  in=  629,428  out=  51,333  list=$0.00  est=$0.00
+claude-sonnet-5        calls= 1513 (batch  1483)  in=2,306,540  out= 265,779  list=$7.27  est=$3.71
+TOTAL est $3.71  (cap $16.00)
+[17:56:41] $ ./venv/bin/python scripts/run_judge.py --split test --generation data/processed/generation/test/sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5.parquet
+batch: 0 cached, 606 to submit
+batch msgbatch_01RfxJsjgteEiaXL2UW4QNy3 submitted
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+  in_progress: 606 processing, 0 done
+{
+ "name": "rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5",
+ "model": "sonnet-5",
+ "split": "test",
+ "mode": "rag",
+ "n": 400,
+ "n_answerable": 302,
+ "n_unanswerable": 98,
+ "errors": 0,
+ "abstain_precision": 0.7368421052631579,
+ "abstain_recall": 0.5714285714285714,
+ "abstain_f1": 0.6436781609195403,
+ "abstain_rate": 0.19,
+ "hallucination_rate": 0.1275,
+ "cost_usd_total": 2.620646,
+ "judge_cost_usd": 5.177615,
+ "judge_errors": 0,
+ "mean_input_tokens": 2163.2325,
+ "mean_latency_s": 3.9863094409306843,
+ "token_f1": 0.41664259229782646,
+ "judge_correct": 0.7943262411347518,
+ "judge_correct_or_partial": 0.9113475177304965,
+ "judge_faithful": 0.9320987654320988,
+ "judge_citation_precision": 0.9556584362139917,
+ "nli_faithful": 0.1728395061728395,
+ "nli_frac_supported": 0.4352072310405644,
+ "retrieval_hit": 0.856687898089172,
+ "decomposition": {
+  "hit=True|correct=1.0": 203,
+  "hit=True|correct=0.0": 47,
+  "hit=False|correct=1.0": 21,
+  "hit=False|correct=0.0": 11
+ }
+}
+[22:12:19] spend check
+claude-haiku-4-5-20251001 calls=  400 (batch   400)  in=  629,428  out=  51,333  list=$0.00  est=$0.00
+claude-opus-5          calls=  606 (batch   606)  in=  858,973  out=  35,310  list=$5.18  est=$2.59
+claude-sonnet-5        calls= 1513 (batch  1483)  in=2,306,540  out= 265,779  list=$7.27  est=$3.71
+TOTAL est $6.30  (cap $16.00)
+[22:12:19] $ ./venv/bin/python scripts/run_judge.py --split test --generation data/processed/generation/test/sonnet-5/rag__paragraph-256-0_bge-small_hybrid_norerank_doc__k5.parquet --no-faith-judge
+batch: 12 cached, 262 to submit
+batch msgbatch_01K6bsdwRKxy4Xa8jcEzLPKE submitted
+  in_progress: 262 processing, 0 done
+  in_progress: 262 processing, 0 done
+  in_progress: 262 processing, 0 done
+  in_progress: 262 processing, 0 done
+  in_progress: 262 processing, 0 done
+{
+ "name": "rag__paragraph-256-0_bge-small_hybrid_norerank_doc__k5",
+ "model": "sonnet-5",
+ "split": "test",
+ "mode": "rag",
+ "n": 400,
+ "n_answerable": 302,
+ "n_unanswerable": 98,
+ "errors": 0,
+ "abstain_precision": 0.6626506024096386,
+ "abstain_recall": 0.5612244897959183,
+ "abstain_f1": 0.6077348066298343,
+ "abstain_rate": 0.2075,
+ "hallucination_rate": 0.6475,
+ "cost_usd_total": 2.589244,
+ "judge_cost_usd": 0.88607,
+ "judge_errors": 0,
+ "mean_input_tokens": 2186.3425,
+ "mean_latency_s": null,
+ "token_f1": 0.4133078035903633,
+ "judge_correct": 0.781021897810219,
+ "judge_correct_or_partial": 0.9087591240875912,
+ "nli_faithful": 0.20189274447949526,
+ "nli_frac_supported": 0.45778128286014724,
+ "retrieval_hit": 0.7929936305732485,
+ "decomposition": {
+  "hit=True|correct=1.0": 191,
+  "hit=True|correct=0.0": 38,
+  "hit=False|correct=1.0": 23,
+  "hit=False|correct=0.0": 22
+ }
+}
+[22:16:10] $ ./venv/bin/python scripts/run_judge.py --split test --generation data/processed/generation/test/haiku-4.5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5.parquet --no-faith-judge
+batch: 6 cached, 254 to submit
+batch msgbatch_019Rq3bEZZD2TgqTNPKTZjUQ submitted
+  in_progress: 254 processing, 0 done
+  in_progress: 254 processing, 0 done
+  in_progress: 254 processing, 0 done
+  in_progress: 254 processing, 0 done
+  in_progress: 254 processing, 0 done
+{
+ "name": "rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5",
+ "model": "haiku-4.5",
+ "split": "test",
+ "mode": "rag",
+ "n": 400,
+ "n_answerable": 302,
+ "n_unanswerable": 98,
+ "errors": 0,
+ "abstain_precision": 0.631578947368421,
+ "abstain_recall": 0.7346938775510204,
+ "abstain_f1": 0.6792452830188679,
+ "abstain_rate": 0.285,
+ "hallucination_rate": 0.535,
+ "cost_usd_total": 0.0,
+ "judge_cost_usd": 0.84191,
+ "judge_errors": 0,
+ "mean_input_tokens": 1573.57,
+ "mean_latency_s": null,
+ "token_f1": 0.44630794363748966,
+ "judge_correct": 0.823076923076923,
+ "judge_correct_or_partial": 0.926923076923077,
+ "nli_faithful": 0.2727272727272727,
+ "nli_frac_supported": 0.4914252414252414,
+ "retrieval_hit": 0.856687898089172,
+ "decomposition": {
+  "hit=True|correct=1.0": 194,
+  "hit=True|correct=0.0": 37,
+  "hit=False|correct=1.0": 20,
+  "hit=False|correct=0.0": 9
+ }
+}
+[22:19:38] $ ./venv/bin/python scripts/run_judge.py --split test --generation data/processed/generation/test/sonnet-5/closed-book__none__k5.parquet --no-faith-judge
+batch: 3 cached, 101 to submit
+batch msgbatch_01DAYvtn4LjAttXVYsCN9u56 submitted
+  in_progress: 101 processing, 0 done
+  in_progress: 101 processing, 0 done
+  in_progress: 101 processing, 0 done
+  in_progress: 101 processing, 0 done
+  in_progress: 101 processing, 0 done
+{
+ "name": "closed-book__none__k5",
+ "model": "sonnet-5",
+ "split": "test",
+ "mode": "closed-book",
+ "n": 400,
+ "n_answerable": 302,
+ "n_unanswerable": 98,
+ "errors": 0,
+ "abstain_precision": 0.2903225806451613,
+ "abstain_recall": 0.826530612244898,
+ "abstain_f1": 0.4297082228116711,
+ "abstain_rate": 0.6975,
+ "hallucination_rate": 0.0425,
+ "cost_usd_total": 0.74285,
+ "judge_cost_usd": 0.333485,
+ "judge_errors": 0,
+ "mean_input_tokens": 570.95,
+ "mean_latency_s": null,
+ "token_f1": 0.3378598636553082,
+ "judge_correct": 0.5096153846153846,
+ "judge_correct_or_partial": 0.7884615384615384
+}
+[22:22:12] $ ./venv/bin/python scripts/run_judge.py --split test --generation data/processed/generation/test/sonnet-5/oracle__paragraph-256-0__k5.parquet --no-faith-judge
+batch: 12 cached, 258 to submit
+batch msgbatch_01KYnLeLhv8n2yHgnSxNWk9r submitted
+  in_progress: 258 processing, 0 done
+  in_progress: 258 processing, 0 done
+  in_progress: 258 processing, 0 done
+  in_progress: 258 processing, 0 done
+  in_progress: 258 processing, 0 done
+  in_progress: 258 processing, 0 done
+{
+ "name": "oracle__paragraph-256-0__k5",
+ "model": "sonnet-5",
+ "split": "test",
+ "mode": "oracle",
+ "n": 314,
+ "n_answerable": 302,
+ "n_unanswerable": 12,
+ "errors": 0,
+ "abstain_precision": 0.1794871794871795,
+ "abstain_recall": 0.5833333333333334,
+ "abstain_f1": 0.2745098039215686,
+ "abstain_rate": 0.12420382165605096,
+ "hallucination_rate": 0.5127388535031847,
+ "cost_usd_total": 1.3265060000000002,
+ "judge_cost_usd": 0.84116,
+ "judge_errors": 0,
+ "mean_input_tokens": 1084.9458598726114,
+ "mean_latency_s": null,
+ "token_f1": 0.4525680403589067,
+ "judge_correct": 0.8518518518518519,
+ "judge_correct_or_partial": 0.9148148148148149,
+ "nli_faithful": 0.4254545454545455,
+ "nli_frac_supported": 0.6481082251082252,
+ "retrieval_hit": 1.0,
+ "decomposition": {
+  "hit=True|correct=1.0": 230,
+  "hit=True|correct=0.0": 40,
+  "hit=False|correct=1.0": 0,
+  "hit=False|correct=0.0": 0
+ }
+}
+[22:25:55] spend check
+claude-haiku-4-5-20251001 calls=  400 (batch   400)  in=  629,428  out=  51,333  list=$0.00  est=$0.00
+claude-opus-5          calls= 1481 (batch  1481)  in=1,327,670  out=  54,110  list=$7.99  est=$4.00
+claude-sonnet-5        calls= 1513 (batch  1483)  in=2,306,540  out= 265,779  list=$7.27  est=$3.71
+TOTAL est $7.70  (cap $16.00)
+[22:25:55] $ ./venv/bin/python scripts/summarize_generation.py --split test --primary sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5
+# Answer-quality ablation (test)
+
+| run                                                                      | mode        |   n |   abstain_rate |   token_f1 |   judge_correct |   judge_correct_or_partial |   judge_faithful |   nli_faithful |   judge_citation_precision |   hallucination_rate |   abstain_precision |   abstain_recall |   retrieval_hit |   mean_input_tokens |   cost_usd_total |   judge_cost_usd |
+|:-------------------------------------------------------------------------|:------------|----:|---------------:|-----------:|----------------:|---------------------------:|-----------------:|---------------:|---------------------------:|---------------------:|--------------------:|-----------------:|----------------:|--------------------:|-----------------:|-----------------:|
+| haiku-4.5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5       | rag         | 400 |          0.285 |      0.446 |           0.823 |                      0.927 |          nan     |          0.273 |                    nan     |                0.535 |               0.632 |            0.735 |           0.857 |            1573.570 |            0.000 |            0.842 |
+| sonnet-5/closed-book__none__k5                                           | closed-book | 400 |          0.698 |      0.338 |           0.510 |                      0.788 |          nan     |        nan     |                    nan     |                0.043 |               0.290 |            0.827 |         nan     |             570.950 |            0.743 |            0.333 |
+| sonnet-5/oracle__paragraph-256-0__k5                                     | oracle      | 314 |          0.124 |      0.453 |           0.852 |                      0.915 |          nan     |          0.425 |                    nan     |                0.513 |               0.179 |            0.583 |           1.000 |            1084.946 |            1.327 |            0.841 |
+| sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5        | rag         | 400 |          0.190 |      0.417 |           0.794 |                      0.911 |            0.932 |          0.173 |                      0.956 |                0.128 |               0.737 |            0.571 |           0.857 |            2163.233 |            2.621 |            5.178 |
+| sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5__smoke | rag         |  30 |          0.200 |      0.405 |         nan     |                    nan     |          nan     |          0.125 |                    nan     |                0.700 |               0.333 |            0.286 |           0.760 |            2096.400 |            0.204 |            0.000 |
+| sonnet-5/rag__paragraph-256-0_bge-small_hybrid_norerank_doc__k5          | rag         | 400 |          0.207 |      0.413 |           0.781 |                      0.909 |          nan     |          0.202 |                    nan     |                0.647 |               0.663 |            0.561 |           0.793 |            2186.343 |            2.589 |            0.886 |
+
+## Retrieval x correctness decomposition (answerable, judged)
+
+| run                                                                |   hit=True|correct=1.0 |   hit=True|correct=0.0 |   hit=False|correct=1.0 |   hit=False|correct=0.0 |
+|:-------------------------------------------------------------------|-----------------------:|-----------------------:|------------------------:|------------------------:|
+| haiku-4.5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5 |                    194 |                     37 |                      20 |                       9 |
+| sonnet-5/oracle__paragraph-256-0__k5                               |                    230 |                     40 |                       0 |                       0 |
+| sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5  |                    203 |                     47 |                      21 |                      11 |
+| sonnet-5/rag__paragraph-256-0_bge-small_hybrid_norerank_doc__k5    |                    191 |                     38 |                      23 |                      22 |
+
+## Paired differences vs `sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5` (95% bootstrap CI over the same questions)
+
+| run                                                                      |   n | judge_correct           | token_f1                | nli_faithful            | hallucinated            |
+|:-------------------------------------------------------------------------|----:|:------------------------|:------------------------|:------------------------|:------------------------|
+| haiku-4.5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5       | 400 | +0.008 [-0.039, +0.051] | +0.024 [-0.001, +0.048] | +0.085 [+0.032, +0.138] | +0.407 [+0.347, +0.460] |
+| sonnet-5/closed-book__none__k5                                           | 400 | -0.296 [-0.398, -0.204] | -0.124 [-0.170, -0.082] | nan                     | -0.085 [-0.120, -0.050] |
+| sonnet-5/oracle__paragraph-256-0__k5                                     | 314 | +0.031 [-0.019, +0.081] | +0.033 [+0.010, +0.058] | +0.242 [+0.174, +0.309] | +0.459 [+0.398, +0.516] |
+| sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5__smoke |  30 | nan                     | +0.000 [+0.000, +0.000] | +0.000 [+0.000, +0.000] | +0.533 [+0.366, +0.700] |
+| sonnet-5/rag__paragraph-256-0_bge-small_hybrid_norerank_doc__k5          | 400 | -0.023 [-0.069, +0.023] | +0.002 [-0.021, +0.025] | +0.027 [-0.020, +0.075] | +0.520 [+0.468, +0.570] |
+
+## Headline CIs for `sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5`
+
+- judge_correct: 0.794 [0.745, 0.837] (n=282)
+- judge_faithful: 0.932 [0.904, 0.957] (n=324)
+- nli_faithful: 0.173 [0.133, 0.216] (n=324)
+- hallucinated: 0.128 [0.095, 0.163] (n=400)
+- abstain: 0.190 [0.152, 0.230] (n=400)
+[22:25:55] === core done ===
+[22:25:55] $ ./venv/bin/python scripts/run_judge.py --split test --generation data/processed/generation/test/sonnet-5/rag__paragraph-256-0_bge-small_hybrid_norerank_doc__k5.parquet
+batch: 275 cached, 316 to submit
+batch msgbatch_01ENmgm2NqeY1EZGD4vihfYz submitted
+  in_progress: 316 processing, 0 done
+  in_progress: 316 processing, 0 done
+  in_progress: 316 processing, 0 done
+  in_progress: 316 processing, 0 done
+  in_progress: 316 processing, 0 done
+  in_progress: 316 processing, 0 done
+  in_progress: 316 processing, 0 done
+{
+ "name": "rag__paragraph-256-0_bge-small_hybrid_norerank_doc__k5",
+ "model": "sonnet-5",
+ "split": "test",
+ "mode": "rag",
+ "n": 400,
+ "n_answerable": 302,
+ "n_unanswerable": 98,
+ "errors": 0,
+ "abstain_precision": 0.6626506024096386,
+ "abstain_recall": 0.5612244897959183,
+ "abstain_f1": 0.6077348066298343,
+ "abstain_rate": 0.2075,
+ "hallucination_rate": 0.1325,
+ "cost_usd_total": 2.589244,
+ "judge_cost_usd": 5.0638,
+ "judge_errors": 0,
+ "mean_input_tokens": 2186.3425,
+ "mean_latency_s": null,
+ "token_f1": 0.4133078035903633,
+ "judge_correct": 0.781021897810219,
+ "judge_correct_or_partial": 0.9087591240875912,
+ "judge_faithful": 0.9242902208201893,
+ "judge_citation_precision": 0.9527339642481598,
+ "nli_faithful": 0.20189274447949526,
+ "nli_frac_supported": 0.45778128286014724,
+ "retrieval_hit": 0.7929936305732485,
+ "decomposition": {
+  "hit=True|correct=1.0": 191,
+  "hit=True|correct=0.0": 38,
+  "hit=False|correct=1.0": 23,
+  "hit=False|correct=0.0": 22
+ }
+}
+[22:30:47] spend check
+claude-haiku-4-5-20251001 calls=  400 (batch   400)  in=  629,428  out=  51,333  list=$0.00  est=$0.00
+claude-opus-5          calls= 1797 (batch  1797)  in=2,020,763  out=  82,014  list=$12.15  est=$6.08
+claude-sonnet-5        calls= 1513 (batch  1483)  in=2,306,540  out= 265,779  list=$7.27  est=$3.71
+TOTAL est $9.78  (cap $16.00)
+[22:30:47] $ ./venv/bin/python scripts/run_judge.py --split test --generation data/processed/generation/test/haiku-4.5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5.parquet
+batch: 261 cached, 285 to submit
+batch msgbatch_01FLJJMtM5o7cX9VdQ8ZcJ5p submitted
+  in_progress: 285 processing, 0 done
+  in_progress: 285 processing, 0 done
+  in_progress: 285 processing, 0 done
+  in_progress: 285 processing, 0 done
+  in_progress: 285 processing, 0 done
+  in_progress: 285 processing, 0 done
+{
+ "name": "rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5",
+ "model": "haiku-4.5",
+ "split": "test",
+ "mode": "rag",
+ "n": 400,
+ "n_answerable": 302,
+ "n_unanswerable": 98,
+ "errors": 0,
+ "abstain_precision": 0.631578947368421,
+ "abstain_recall": 0.7346938775510204,
+ "abstain_f1": 0.6792452830188679,
+ "abstain_rate": 0.285,
+ "hallucination_rate": 0.0875,
+ "cost_usd_total": 0.0,
+ "judge_cost_usd": 4.45771,
+ "judge_errors": 0,
+ "mean_input_tokens": 1573.57,
+ "mean_latency_s": null,
+ "token_f1": 0.44630794363748966,
+ "judge_correct": 0.823076923076923,
+ "judge_correct_or_partial": 0.926923076923077,
+ "judge_faithful": 0.9615384615384616,
+ "judge_citation_precision": 0.9798951048951049,
+ "nli_faithful": 0.2727272727272727,
+ "nli_frac_supported": 0.4914252414252414,
+ "retrieval_hit": 0.856687898089172,
+ "decomposition": {
+  "hit=True|correct=1.0": 194,
+  "hit=True|correct=0.0": 37,
+  "hit=False|correct=1.0": 20,
+  "hit=False|correct=0.0": 9
+ }
+}
+[22:34:45] spend check
+claude-haiku-4-5-20251001 calls=  400 (batch   400)  in=  629,428  out=  51,333  list=$0.00  est=$0.00
+claude-opus-5          calls= 2082 (batch  2082)  in=2,634,581  out= 103,423  list=$15.76  est=$7.88
+claude-sonnet-5        calls= 1513 (batch  1483)  in=2,306,540  out= 265,779  list=$7.27  est=$3.71
+TOTAL est $11.59  (cap $16.00)
+[22:34:45] $ ./venv/bin/python scripts/run_generation.py --split test --config fixed-512-0_bge-small_hybrid_norerank_doc --model sonnet-5 --mode rag --top-k 5 --effort low --sample data/processed/test_sample_400.json
+400 requests (rag, sonnet-5, fixed-512-0_bge-small_hybrid_norerank_doc)
+batch: 0 cached, 400 to submit
+batch msgbatch_01QUyy8gYffHQFAiacpbsVHc submitted
+  in_progress: 400 processing, 0 done
+  in_progress: 400 processing, 0 done
+  in_progress: 400 processing, 0 done
+  in_progress: 400 processing, 0 done
+  in_progress: 400 processing, 0 done
+  in_progress: 400 processing, 0 done
+wrote data/processed/generation/test/sonnet-5/rag__fixed-512-0_bge-small_hybrid_norerank_doc__k5.parquet: 400 rows, 0 errors, abstain rate 0.20, est. cost $4.34
+[22:37:56] $ ./venv/bin/python scripts/run_judge.py --split test --generation data/processed/generation/test/sonnet-5/rag__fixed-512-0_bge-small_hybrid_norerank_doc__k5.parquet --no-faith-judge
+batch: 15 cached, 264 to submit
+batch msgbatch_01DqYXPKfrTMznfojL5GzYWp submitted
+  in_progress: 264 processing, 0 done
+  in_progress: 264 processing, 0 done
+  in_progress: 264 processing, 0 done
+  in_progress: 264 processing, 0 done
+  in_progress: 264 processing, 0 done
+  in_progress: 264 processing, 0 done
+{
+ "name": "rag__fixed-512-0_bge-small_hybrid_norerank_doc__k5",
+ "model": "sonnet-5",
+ "split": "test",
+ "mode": "rag",
+ "n": 400,
+ "n_answerable": 302,
+ "n_unanswerable": 98,
+ "errors": 0,
+ "abstain_precision": 0.7195121951219512,
+ "abstain_recall": 0.6020408163265306,
+ "abstain_f1": 0.6555555555555556,
+ "abstain_rate": 0.205,
+ "hallucination_rate": 0.7825,
+ "cost_usd_total": 4.340898,
+ "judge_cost_usd": 0.907005,
+ "judge_errors": 0,
+ "mean_input_tokens": 4275.485,
+ "mean_latency_s": null,
+ "token_f1": 0.4403168337127202,
+ "judge_correct": 0.8064516129032258,
+ "judge_correct_or_partial": 0.910394265232975,
+ "nli_faithful": 0.015723270440251572,
+ "nli_frac_supported": 0.08140161725067384,
+ "retrieval_hit": 0.8789808917197452,
+ "decomposition": {
+  "hit=True|correct=1.0": 207,
+  "hit=True|correct=0.0": 43,
+  "hit=False|correct=1.0": 18,
+  "hit=False|correct=0.0": 11
+ }
+}
+[22:43:51] $ ./venv/bin/python scripts/summarize_generation.py --split test --primary sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5
+# Answer-quality ablation (test)
+
+| run                                                                      | mode        |   n |   abstain_rate |   token_f1 |   judge_correct |   judge_correct_or_partial |   judge_faithful |   nli_faithful |   judge_citation_precision |   hallucination_rate |   abstain_precision |   abstain_recall |   retrieval_hit |   mean_input_tokens |   cost_usd_total |   judge_cost_usd |
+|:-------------------------------------------------------------------------|:------------|----:|---------------:|-----------:|----------------:|---------------------------:|-----------------:|---------------:|---------------------------:|---------------------:|--------------------:|-----------------:|----------------:|--------------------:|-----------------:|-----------------:|
+| haiku-4.5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5       | rag         | 400 |          0.285 |      0.446 |           0.823 |                      0.927 |            0.962 |          0.273 |                      0.980 |                0.087 |               0.632 |            0.735 |           0.857 |            1573.570 |            0.000 |            4.458 |
+| sonnet-5/closed-book__none__k5                                           | closed-book | 400 |          0.698 |      0.338 |           0.510 |                      0.788 |          nan     |        nan     |                    nan     |                0.043 |               0.290 |            0.827 |         nan     |             570.950 |            0.743 |            0.333 |
+| sonnet-5/oracle__paragraph-256-0__k5                                     | oracle      | 314 |          0.124 |      0.453 |           0.852 |                      0.915 |          nan     |          0.425 |                    nan     |                0.513 |               0.179 |            0.583 |           1.000 |            1084.946 |            1.327 |            0.841 |
+| sonnet-5/rag__fixed-512-0_bge-small_hybrid_norerank_doc__k5              | rag         | 400 |          0.205 |      0.440 |           0.806 |                      0.910 |          nan     |          0.016 |                    nan     |                0.782 |               0.720 |            0.602 |           0.879 |            4275.485 |            4.341 |            0.907 |
+| sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5        | rag         | 400 |          0.190 |      0.417 |           0.794 |                      0.911 |            0.932 |          0.173 |                      0.956 |                0.128 |               0.737 |            0.571 |           0.857 |            2163.233 |            2.621 |            5.178 |
+| sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5__smoke | rag         |  30 |          0.200 |      0.405 |         nan     |                    nan     |          nan     |          0.125 |                    nan     |                0.700 |               0.333 |            0.286 |           0.760 |            2096.400 |            0.204 |            0.000 |
+| sonnet-5/rag__paragraph-256-0_bge-small_hybrid_norerank_doc__k5          | rag         | 400 |          0.207 |      0.413 |           0.781 |                      0.909 |            0.924 |          0.202 |                      0.953 |                0.133 |               0.663 |            0.561 |           0.793 |            2186.343 |            2.589 |            5.064 |
+
+## Retrieval x correctness decomposition (answerable, judged)
+
+| run                                                                |   hit=True|correct=1.0 |   hit=True|correct=0.0 |   hit=False|correct=1.0 |   hit=False|correct=0.0 |
+|:-------------------------------------------------------------------|-----------------------:|-----------------------:|------------------------:|------------------------:|
+| haiku-4.5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5 |                    194 |                     37 |                      20 |                       9 |
+| sonnet-5/oracle__paragraph-256-0__k5                               |                    230 |                     40 |                       0 |                       0 |
+| sonnet-5/rag__fixed-512-0_bge-small_hybrid_norerank_doc__k5        |                    207 |                     43 |                      18 |                      11 |
+| sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5  |                    203 |                     47 |                      21 |                      11 |
+| sonnet-5/rag__paragraph-256-0_bge-small_hybrid_norerank_doc__k5    |                    191 |                     38 |                      23 |                      22 |
+
+## Paired differences vs `sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5` (95% bootstrap CI over the same questions)
+
+| run                                                                      |   n | judge_correct           | token_f1                | judge_faithful          | nli_faithful            | hallucinated            |
+|:-------------------------------------------------------------------------|----:|:------------------------|:------------------------|:------------------------|:------------------------|:------------------------|
+| haiku-4.5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5       | 400 | +0.008 [-0.039, +0.051] | +0.024 [-0.001, +0.048] | +0.007 [-0.018, +0.035] | +0.085 [+0.032, +0.138] | -0.040 [-0.068, -0.015] |
+| sonnet-5/closed-book__none__k5                                           | 400 | -0.296 [-0.398, -0.204] | -0.124 [-0.170, -0.082] | nan                     | nan                     | -0.085 [-0.120, -0.050] |
+| sonnet-5/oracle__paragraph-256-0__k5                                     | 314 | +0.031 [-0.019, +0.081] | +0.033 [+0.010, +0.058] | nan                     | +0.242 [+0.174, +0.309] | +0.459 [+0.398, +0.516] |
+| sonnet-5/rag__fixed-512-0_bge-small_hybrid_norerank_doc__k5              | 400 | +0.004 [-0.041, +0.052] | +0.018 [-0.005, +0.043] | nan                     | -0.164 [-0.207, -0.120] | +0.655 [+0.600, +0.703] |
+| sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5__smoke |  30 | nan                     | +0.000 [+0.000, +0.000] | nan                     | +0.000 [+0.000, +0.000] | +0.533 [+0.366, +0.700] |
+| sonnet-5/rag__paragraph-256-0_bge-small_hybrid_norerank_doc__k5          | 400 | -0.023 [-0.069, +0.023] | +0.002 [-0.021, +0.025] | +0.000 [-0.031, +0.034] | +0.027 [-0.020, +0.075] | +0.005 [-0.025, +0.035] |
+
+## Headline CIs for `sonnet-5/rag__paragraph-256-0_bge-small-ft_dense_norerank_doc__k5`
+
+- judge_correct: 0.794 [0.745, 0.837] (n=282)
+- judge_faithful: 0.932 [0.904, 0.957] (n=324)
+- nli_faithful: 0.173 [0.133, 0.216] (n=324)
+- hallucinated: 0.128 [0.095, 0.163] (n=400)
+- abstain: 0.190 [0.152, 0.230] (n=400)
+claude-haiku-4-5-20251001 calls=  400 (batch   400)  in=  629,428  out=  51,333  list=$0.00  est=$0.00
+claude-opus-5          calls= 2346 (batch  2346)  in=2,777,056  out= 109,585  list=$16.62  est=$8.31
+claude-sonnet-5        calls= 1913 (batch  1883)  in=4,016,734  out= 357,830  list=$11.61  est=$5.90
+TOTAL est $14.21
+[22:43:51] === overnight done ===

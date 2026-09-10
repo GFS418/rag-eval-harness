@@ -49,3 +49,33 @@ def all_metrics(ranked: Sequence[str], gold: Collection[str],
 def _check(gold: Collection[str]) -> None:
     if not gold:
         raise ValueError("gold set is empty; exclude this question upstream")
+
+
+# --------------------------------------------------------------------------
+# Budget-matched metrics: comparing chunk sizes at a fixed k is confounded
+# (top-5 of 512-token chunks reads ~half a paper; top-5 of 128-token chunks
+# reads an eighth). These compare at equal *context tokens* handed to the
+# generator instead.
+# --------------------------------------------------------------------------
+
+def within_budget(ranked: Sequence[str], n_tokens: dict[str, int], budget: int) -> list[str]:
+    """Longest prefix of the ranking whose token total fits the budget (at least one chunk)."""
+    out, used = [], 0
+    for cid in ranked:
+        t = n_tokens.get(cid, 0)
+        if out and used + t > budget:
+            break
+        out.append(cid)
+        used += t
+    return out
+
+
+def recall_at_budget(ranked: Sequence[str], gold: Collection[str], n_tokens: dict[str, int], budget: int) -> float:
+    _check(gold)
+    sel = within_budget(ranked, n_tokens, budget)
+    return sum(r in gold for r in sel) / len(gold)
+
+
+def hit_at_budget(ranked: Sequence[str], gold: Collection[str], n_tokens: dict[str, int], budget: int) -> float:
+    _check(gold)
+    return float(any(r in gold for r in within_budget(ranked, n_tokens, budget)))

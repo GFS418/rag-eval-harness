@@ -1,16 +1,176 @@
 Corpus(qasper/dev: 281 docs, 13266 paragraphs, 1005 questions) -> retrieving for 1005 questions; 886 answerable with gold paragraphs
 [fixed-128-0] 11101 chunks; 819/886 answerable questions have >=1 gold chunk
   [bge-small] index built in 1s
-    fixed-128-0_bge-small_dense_norerank_doc                R@5=0.433 hit@5=0.554 MRR=0.379 nDCG@10=0.403  0.1 ms/q
-    fixed-128-0_bge-small_dense_norerank_open               R@5=0.113 hit@5=0.160 MRR=0.108 nDCG@10=0.101  0.6 ms/q
-    fixed-128-0_bge-small_dense_norerank_open-titled        R@5=0.217 hit@5=0.300 MRR=0.193 nDCG@10=0.192  0.4 ms/q
-    fixed-128-0_bge-small_hybrid_norerank_doc               R@5=0.450 hit@5=0.589 MRR=0.391 nDCG@10=0.414  0.1 ms/q
-    fixed-128-0_bge-small_hybrid_norerank_open              R@5=0.145 hit@5=0.199 MRR=0.128 nDCG@10=0.119  0.5 ms/q
-    fixed-128-0_bge-small_hybrid_norerank_open-titled       R@5=0.216 hit@5=0.297 MRR=0.192 nDCG@10=0.198  0.6 ms/q
-  [bge-base] index built in 123s
-    fixed-128-0_bge-base_dense_norerank_doc                 R@5=0.450 hit@5=0.579 MRR=0.400 nDCG@10=0.411  0.0 ms/q
-    fixed-128-0_bge-base_dense_norerank_open                R@5=0.130 hit@5=0.181 MRR=0.119 nDCG@10=0.112  0.5 ms/q
-    fixed-128-0_bge-base_dense_norerank_open-titled         R@5=0.226 hit@5=0.314 MRR=0.208 nDCG@10=0.210  0.5 ms/q
-    fixed-128-0_bge-base_hybrid_norerank_doc                R@5=0.452 hit@5=0.580 MRR=0.396 nDCG@10=0.412  0.1 ms/q
-    fixed-128-0_bge-base_hybrid_norerank_open               R@5=0.146 hit@5=0.204 MRR=0.131 nDCG@10=0.127  0.7 ms/q
-    fixed-128-0_bge-base_hybrid_norerank_open-titled        R@5=0.228 hit@5=0.309 MRR=0.200 nDCG@10=0.208  0.8 ms/q
+    fixed-128-0_bge-small_dense_norerank_doc                R@5=0.433 hit@5=0.554 MRR=0.379 R@1024tok=0.578  0.1 ms/q
+    fixed-128-0_bge-small_dense_norerank_open               R@5=0.113 hit@5=0.160 MRR=0.108 R@1024tok=0.139  0.5 ms/q
+    fixed-128-0_bge-small_dense_norerank_open-titled        R@5=0.217 hit@5=0.300 MRR=0.193 R@1024tok=0.274  0.6 ms/q
+    fixed-128-0_bge-small_hybrid_norerank_doc               R@5=0.450 hit@5=0.589 MRR=0.391 R@1024tok=0.580  0.3 ms/q
+    fixed-128-0_bge-small_hybrid_norerank_open              R@5=0.145 hit@5=0.199 MRR=0.128 R@1024tok=0.174  1.3 ms/q
+    fixed-128-0_bge-small_hybrid_norerank_open-titled       R@5=0.216 hit@5=0.297 MRR=0.192 R@1024tok=0.295  1.7 ms/q
+  [bge-base] index built in 1s
+    fixed-128-0_bge-base_dense_norerank_doc                 R@5=0.450 hit@5=0.579 MRR=0.400 R@1024tok=0.569  0.1 ms/q
+    fixed-128-0_bge-base_dense_norerank_open                R@5=0.130 hit@5=0.181 MRR=0.119 R@1024tok=0.157  0.9 ms/q
+    fixed-128-0_bge-base_dense_norerank_open-titled         R@5=0.226 hit@5=0.314 MRR=0.208 R@1024tok=0.313  1.5 ms/q
+    fixed-128-0_bge-base_hybrid_norerank_doc                R@5=0.452 hit@5=0.580 MRR=0.396 R@1024tok=0.567  0.2 ms/q
+    fixed-128-0_bge-base_hybrid_norerank_open               R@5=0.146 hit@5=0.204 MRR=0.131 R@1024tok=0.180  2.0 ms/q
+    fixed-128-0_bge-base_hybrid_norerank_open-titled        R@5=0.228 hit@5=0.309 MRR=0.200 R@1024tok=0.310  3.5 ms/q
+  [e5-base] index built in 1s
+    fixed-128-0_e5-base_dense_norerank_doc                  R@5=0.432 hit@5=0.549 MRR=0.362 R@1024tok=0.568  0.1 ms/q
+    fixed-128-0_e5-base_dense_norerank_open                 R@5=0.120 hit@5=0.162 MRR=0.105 R@1024tok=0.144  1.1 ms/q
+    fixed-128-0_e5-base_dense_norerank_open-titled          R@5=0.208 hit@5=0.278 MRR=0.185 R@1024tok=0.277  1.5 ms/q
+    fixed-128-0_e5-base_hybrid_norerank_doc                 R@5=0.452 hit@5=0.580 MRR=0.380 R@1024tok=0.571  0.2 ms/q
+    fixed-128-0_e5-base_hybrid_norerank_open                R@5=0.134 hit@5=0.186 MRR=0.122 R@1024tok=0.172  2.2 ms/q
+    fixed-128-0_e5-base_hybrid_norerank_open-titled         R@5=0.228 hit@5=0.305 MRR=0.192 R@1024tok=0.291  3.1 ms/q
+  [minilm] index built in 1s
+    fixed-128-0_minilm_dense_norerank_doc                   R@5=0.418 hit@5=0.537 MRR=0.356 R@1024tok=0.557  0.1 ms/q
+    fixed-128-0_minilm_dense_norerank_open                  R@5=0.088 hit@5=0.125 MRR=0.089 R@1024tok=0.115  1.3 ms/q
+    fixed-128-0_minilm_dense_norerank_open-titled           R@5=0.228 hit@5=0.309 MRR=0.199 R@1024tok=0.289  1.9 ms/q
+    fixed-128-0_minilm_hybrid_norerank_doc                  R@5=0.433 hit@5=0.567 MRR=0.377 R@1024tok=0.562  0.5 ms/q
+    fixed-128-0_minilm_hybrid_norerank_open                 R@5=0.131 hit@5=0.184 MRR=0.120 R@1024tok=0.161  2.2 ms/q
+    fixed-128-0_minilm_hybrid_norerank_open-titled          R@5=0.226 hit@5=0.305 MRR=0.201 R@1024tok=0.310  2.1 ms/q
+[fixed-256-0] 5624 chunks; 880/886 answerable questions have >=1 gold chunk
+  [bge-small] index built in 1s
+    fixed-256-0_bge-small_dense_norerank_doc                R@5=0.609 hit@5=0.716 MRR=0.472 R@1024tok=0.537  0.1 ms/q
+    fixed-256-0_bge-small_dense_norerank_open               R@5=0.148 hit@5=0.193 MRR=0.130 R@1024tok=0.129  0.2 ms/q
+    fixed-256-0_bge-small_dense_norerank_open-titled        R@5=0.357 hit@5=0.458 MRR=0.287 R@1024tok=0.307  0.2 ms/q
+    fixed-256-0_bge-small_hybrid_norerank_doc               R@5=0.626 hit@5=0.739 MRR=0.497 R@1024tok=0.560  0.2 ms/q
+    fixed-256-0_bge-small_hybrid_norerank_open              R@5=0.193 hit@5=0.247 MRR=0.173 R@1024tok=0.174  0.7 ms/q
+    fixed-256-0_bge-small_hybrid_norerank_open-titled       R@5=0.366 hit@5=0.468 MRR=0.290 R@1024tok=0.312  1.0 ms/q
+  [bge-base] index built in 1s
+    fixed-256-0_bge-base_dense_norerank_doc                 R@5=0.587 hit@5=0.694 MRR=0.485 R@1024tok=0.520  0.1 ms/q
+    fixed-256-0_bge-base_dense_norerank_open                R@5=0.157 hit@5=0.202 MRR=0.135 R@1024tok=0.139  0.5 ms/q
+    fixed-256-0_bge-base_dense_norerank_open-titled         R@5=0.364 hit@5=0.457 MRR=0.290 R@1024tok=0.315  1.1 ms/q
+    fixed-256-0_bge-base_hybrid_norerank_doc                R@5=0.620 hit@5=0.732 MRR=0.506 R@1024tok=0.548  0.5 ms/q
+    fixed-256-0_bge-base_hybrid_norerank_open               R@5=0.193 hit@5=0.244 MRR=0.169 R@1024tok=0.177  1.7 ms/q
+    fixed-256-0_bge-base_hybrid_norerank_open-titled        R@5=0.375 hit@5=0.473 MRR=0.294 R@1024tok=0.315  2.3 ms/q
+  [e5-base] index built in 1s
+    fixed-256-0_e5-base_dense_norerank_doc                  R@5=0.569 hit@5=0.683 MRR=0.447 R@1024tok=0.496  0.1 ms/q
+    fixed-256-0_e5-base_dense_norerank_open                 R@5=0.137 hit@5=0.177 MRR=0.117 R@1024tok=0.120  0.8 ms/q
+    fixed-256-0_e5-base_dense_norerank_open-titled          R@5=0.339 hit@5=0.424 MRR=0.269 R@1024tok=0.305  0.9 ms/q
+    fixed-256-0_e5-base_hybrid_norerank_doc                 R@5=0.612 hit@5=0.723 MRR=0.482 R@1024tok=0.537  0.2 ms/q
+    fixed-256-0_e5-base_hybrid_norerank_open                R@5=0.175 hit@5=0.220 MRR=0.151 R@1024tok=0.156  1.3 ms/q
+    fixed-256-0_e5-base_hybrid_norerank_open-titled         R@5=0.366 hit@5=0.455 MRR=0.294 R@1024tok=0.322  1.3 ms/q
+  [minilm] index built in 1s
+    fixed-256-0_minilm_dense_norerank_doc                   R@5=0.601 hit@5=0.713 MRR=0.463 R@1024tok=0.532  0.1 ms/q
+    fixed-256-0_minilm_dense_norerank_open                  R@5=0.119 hit@5=0.157 MRR=0.108 R@1024tok=0.101  0.5 ms/q
+    fixed-256-0_minilm_dense_norerank_open-titled           R@5=0.336 hit@5=0.427 MRR=0.272 R@1024tok=0.286  0.5 ms/q
+    fixed-256-0_minilm_hybrid_norerank_doc                  R@5=0.642 hit@5=0.756 MRR=0.487 R@1024tok=0.567  0.2 ms/q
+    fixed-256-0_minilm_hybrid_norerank_open                 R@5=0.170 hit@5=0.219 MRR=0.150 R@1024tok=0.154  0.9 ms/q
+    fixed-256-0_minilm_hybrid_norerank_open-titled          R@5=0.370 hit@5=0.473 MRR=0.292 R@1024tok=0.317  1.0 ms/q
+[fixed-256-32] 6367 chunks; 880/886 answerable questions have >=1 gold chunk
+  [bge-small] index built in 1s
+    fixed-256-32_bge-small_dense_norerank_doc               R@5=0.572 hit@5=0.732 MRR=0.475 R@1024tok=0.500  0.1 ms/q
+    fixed-256-32_bge-small_dense_norerank_open              R@5=0.126 hit@5=0.186 MRR=0.126 R@1024tok=0.110  0.3 ms/q
+    fixed-256-32_bge-small_dense_norerank_open-titled       R@5=0.337 hit@5=0.460 MRR=0.294 R@1024tok=0.297  0.3 ms/q
+    fixed-256-32_bge-small_hybrid_norerank_doc              R@5=0.599 hit@5=0.759 MRR=0.496 R@1024tok=0.528  0.2 ms/q
+    fixed-256-32_bge-small_hybrid_norerank_open             R@5=0.178 hit@5=0.247 MRR=0.165 R@1024tok=0.154  0.9 ms/q
+    fixed-256-32_bge-small_hybrid_norerank_open-titled      R@5=0.348 hit@5=0.469 MRR=0.309 R@1024tok=0.297  1.0 ms/q
+  [bge-base] index built in 1s
+    fixed-256-32_bge-base_dense_norerank_doc                R@5=0.560 hit@5=0.702 MRR=0.478 R@1024tok=0.500  0.8 ms/q
+    fixed-256-32_bge-base_dense_norerank_open               R@5=0.128 hit@5=0.181 MRR=0.127 R@1024tok=0.118  1.2 ms/q
+    fixed-256-32_bge-base_dense_norerank_open-titled        R@5=0.344 hit@5=0.464 MRR=0.284 R@1024tok=0.299  1.0 ms/q
+    fixed-256-32_bge-base_hybrid_norerank_doc               R@5=0.597 hit@5=0.751 MRR=0.502 R@1024tok=0.522  0.2 ms/q
+    fixed-256-32_bge-base_hybrid_norerank_open              R@5=0.178 hit@5=0.235 MRR=0.167 R@1024tok=0.155  1.3 ms/q
+    fixed-256-32_bge-base_hybrid_norerank_open-titled       R@5=0.347 hit@5=0.466 MRR=0.299 R@1024tok=0.292  1.5 ms/q
+  [e5-base] index built in 1s
+    fixed-256-32_e5-base_dense_norerank_doc                 R@5=0.542 hit@5=0.691 MRR=0.432 R@1024tok=0.455  0.1 ms/q
+    fixed-256-32_e5-base_dense_norerank_open                R@5=0.121 hit@5=0.164 MRR=0.104 R@1024tok=0.104  0.6 ms/q
+    fixed-256-32_e5-base_dense_norerank_open-titled         R@5=0.300 hit@5=0.407 MRR=0.251 R@1024tok=0.265  1.1 ms/q
+    fixed-256-32_e5-base_hybrid_norerank_doc                R@5=0.574 hit@5=0.727 MRR=0.476 R@1024tok=0.503  0.2 ms/q
+    fixed-256-32_e5-base_hybrid_norerank_open               R@5=0.169 hit@5=0.227 MRR=0.154 R@1024tok=0.147  1.4 ms/q
+    fixed-256-32_e5-base_hybrid_norerank_open-titled        R@5=0.343 hit@5=0.466 MRR=0.293 R@1024tok=0.286  1.6 ms/q
+  [minilm] index built in 1s
+    fixed-256-32_minilm_dense_norerank_doc                  R@5=0.561 hit@5=0.711 MRR=0.475 R@1024tok=0.497  0.1 ms/q
+    fixed-256-32_minilm_dense_norerank_open                 R@5=0.113 hit@5=0.155 MRR=0.113 R@1024tok=0.102  0.3 ms/q
+    fixed-256-32_minilm_dense_norerank_open-titled          R@5=0.315 hit@5=0.428 MRR=0.264 R@1024tok=0.276  0.2 ms/q
+    fixed-256-32_minilm_hybrid_norerank_doc                 R@5=0.590 hit@5=0.741 MRR=0.502 R@1024tok=0.537  0.2 ms/q
+    fixed-256-32_minilm_hybrid_norerank_open                R@5=0.161 hit@5=0.232 MRR=0.162 R@1024tok=0.142  0.7 ms/q
+    fixed-256-32_minilm_hybrid_norerank_open-titled         R@5=0.323 hit@5=0.441 MRR=0.289 R@1024tok=0.279  0.9 ms/q
+[fixed-512-0] 2883 chunks; 886/886 answerable questions have >=1 gold chunk
+  [bge-small] index built in 1s
+    fixed-512-0_bge-small_dense_norerank_doc                R@5=0.772 hit@5=0.844 MRR=0.558 R@1024tok=0.458  0.0 ms/q
+    fixed-512-0_bge-small_dense_norerank_open               R@5=0.160 hit@5=0.199 MRR=0.141 R@1024tok=0.098  0.1 ms/q
+    fixed-512-0_bge-small_dense_norerank_open-titled        R@5=0.521 hit@5=0.599 MRR=0.375 R@1024tok=0.281  0.1 ms/q
+    fixed-512-0_bge-small_hybrid_norerank_doc               R@5=0.809 hit@5=0.871 MRR=0.585 R@1024tok=0.482  0.1 ms/q
+    fixed-512-0_bge-small_hybrid_norerank_open              R@5=0.229 hit@5=0.272 MRR=0.193 R@1024tok=0.132  0.5 ms/q
+    fixed-512-0_bge-small_hybrid_norerank_open-titled       R@5=0.568 hit@5=0.656 MRR=0.397 R@1024tok=0.277  0.5 ms/q
+  [bge-base] index built in 1s
+    fixed-512-0_bge-base_dense_norerank_doc                 R@5=0.776 hit@5=0.848 MRR=0.555 R@1024tok=0.440  0.1 ms/q
+    fixed-512-0_bge-base_dense_norerank_open                R@5=0.172 hit@5=0.208 MRR=0.145 R@1024tok=0.103  0.1 ms/q
+    fixed-512-0_bge-base_dense_norerank_open-titled         R@5=0.516 hit@5=0.603 MRR=0.375 R@1024tok=0.284  0.2 ms/q
+    fixed-512-0_bge-base_hybrid_norerank_doc                R@5=0.808 hit@5=0.869 MRR=0.576 R@1024tok=0.477  0.1 ms/q
+    fixed-512-0_bge-base_hybrid_norerank_open               R@5=0.232 hit@5=0.270 MRR=0.191 R@1024tok=0.142  0.5 ms/q
+    fixed-512-0_bge-base_hybrid_norerank_open-titled        R@5=0.557 hit@5=0.643 MRR=0.389 R@1024tok=0.286  0.5 ms/q
+  [e5-base] index built in 1s
+    fixed-512-0_e5-base_dense_norerank_doc                  R@5=0.764 hit@5=0.839 MRR=0.524 R@1024tok=0.412  0.1 ms/q
+    fixed-512-0_e5-base_dense_norerank_open                 R@5=0.170 hit@5=0.208 MRR=0.135 R@1024tok=0.096  0.2 ms/q
+    fixed-512-0_e5-base_dense_norerank_open-titled          R@5=0.465 hit@5=0.537 MRR=0.345 R@1024tok=0.260  0.2 ms/q
+    fixed-512-0_e5-base_hybrid_norerank_doc                 R@5=0.803 hit@5=0.874 MRR=0.561 R@1024tok=0.464  0.1 ms/q
+    fixed-512-0_e5-base_hybrid_norerank_open                R@5=0.232 hit@5=0.267 MRR=0.179 R@1024tok=0.134  0.5 ms/q
+    fixed-512-0_e5-base_hybrid_norerank_open-titled         R@5=0.541 hit@5=0.628 MRR=0.393 R@1024tok=0.301  0.6 ms/q
+  [minilm] index built in 1s
+    fixed-512-0_minilm_dense_norerank_doc                   R@5=0.746 hit@5=0.830 MRR=0.508 R@1024tok=0.403  0.0 ms/q
+    fixed-512-0_minilm_dense_norerank_open                  R@5=0.127 hit@5=0.159 MRR=0.110 R@1024tok=0.072  0.1 ms/q
+    fixed-512-0_minilm_dense_norerank_open-titled           R@5=0.407 hit@5=0.490 MRR=0.313 R@1024tok=0.221  0.1 ms/q
+    fixed-512-0_minilm_hybrid_norerank_doc                  R@5=0.792 hit@5=0.861 MRR=0.551 R@1024tok=0.459  0.1 ms/q
+    fixed-512-0_minilm_hybrid_norerank_open                 R@5=0.223 hit@5=0.263 MRR=0.170 R@1024tok=0.119  0.5 ms/q
+    fixed-512-0_minilm_hybrid_norerank_open-titled          R@5=0.523 hit@5=0.617 MRR=0.368 R@1024tok=0.261  0.5 ms/q
+[paragraph-256-0] 7550 chunks; 880/886 answerable questions have >=1 gold chunk
+  [bge-small] index built in 1s
+    paragraph-256-0_bge-small_dense_norerank_doc            R@5=0.607 hit@5=0.733 MRR=0.488 R@1024tok=0.592  0.1 ms/q
+    paragraph-256-0_bge-small_dense_norerank_open           R@5=0.158 hit@5=0.210 MRR=0.141 R@1024tok=0.159  0.2 ms/q
+    paragraph-256-0_bge-small_dense_norerank_open-titled    R@5=0.340 hit@5=0.443 MRR=0.289 R@1024tok=0.328  0.2 ms/q
+    paragraph-256-0_bge-small_hybrid_norerank_doc           R@5=0.616 hit@5=0.739 MRR=0.516 R@1024tok=0.591  0.2 ms/q
+    paragraph-256-0_bge-small_hybrid_norerank_open          R@5=0.196 hit@5=0.255 MRR=0.180 R@1024tok=0.187  1.2 ms/q
+    paragraph-256-0_bge-small_hybrid_norerank_open-titled   R@5=0.344 hit@5=0.444 MRR=0.284 R@1024tok=0.322  3.3 ms/q
+  [bge-base] index built in 1s
+    paragraph-256-0_bge-base_dense_norerank_doc             R@5=0.574 hit@5=0.689 MRR=0.484 R@1024tok=0.564  0.1 ms/q
+    paragraph-256-0_bge-base_dense_norerank_open            R@5=0.146 hit@5=0.194 MRR=0.140 R@1024tok=0.143  1.3 ms/q
+    paragraph-256-0_bge-base_dense_norerank_open-titled     R@5=0.341 hit@5=0.442 MRR=0.284 R@1024tok=0.321  1.1 ms/q
+    paragraph-256-0_bge-base_hybrid_norerank_doc            R@5=0.612 hit@5=0.731 MRR=0.509 R@1024tok=0.593  0.2 ms/q
+    paragraph-256-0_bge-base_hybrid_norerank_open           R@5=0.185 hit@5=0.239 MRR=0.182 R@1024tok=0.180  1.4 ms/q
+    paragraph-256-0_bge-base_hybrid_norerank_open-titled    R@5=0.329 hit@5=0.426 MRR=0.278 R@1024tok=0.306  1.7 ms/q
+  [e5-base] index built in 1s
+    paragraph-256-0_e5-base_dense_norerank_doc              R@5=0.593 hit@5=0.714 MRR=0.494 R@1024tok=0.581  0.1 ms/q
+    paragraph-256-0_e5-base_dense_norerank_open             R@5=0.170 hit@5=0.219 MRR=0.151 R@1024tok=0.170  0.7 ms/q
+    paragraph-256-0_e5-base_dense_norerank_open-titled      R@5=0.329 hit@5=0.426 MRR=0.272 R@1024tok=0.316  0.7 ms/q
+    paragraph-256-0_e5-base_hybrid_norerank_doc             R@5=0.611 hit@5=0.734 MRR=0.497 R@1024tok=0.585  0.2 ms/q
+    paragraph-256-0_e5-base_hybrid_norerank_open            R@5=0.201 hit@5=0.259 MRR=0.180 R@1024tok=0.191  1.5 ms/q
+    paragraph-256-0_e5-base_hybrid_norerank_open-titled     R@5=0.339 hit@5=0.434 MRR=0.277 R@1024tok=0.324  1.7 ms/q
+  [minilm] index built in 1s
+    paragraph-256-0_minilm_dense_norerank_doc               R@5=0.571 hit@5=0.686 MRR=0.454 R@1024tok=0.563  0.1 ms/q
+    paragraph-256-0_minilm_dense_norerank_open              R@5=0.115 hit@5=0.153 MRR=0.110 R@1024tok=0.124  0.3 ms/q
+    paragraph-256-0_minilm_dense_norerank_open-titled       R@5=0.293 hit@5=0.378 MRR=0.249 R@1024tok=0.292  0.3 ms/q
+    paragraph-256-0_minilm_hybrid_norerank_doc              R@5=0.606 hit@5=0.727 MRR=0.499 R@1024tok=0.585  0.2 ms/q
+    paragraph-256-0_minilm_hybrid_norerank_open             R@5=0.167 hit@5=0.220 MRR=0.159 R@1024tok=0.171  0.8 ms/q
+    paragraph-256-0_minilm_hybrid_norerank_open-titled      R@5=0.317 hit@5=0.419 MRR=0.266 R@1024tok=0.307  1.9 ms/q
+[paragraph-512-0] 3331 chunks; 886/886 answerable questions have >=1 gold chunk
+  [bge-small] index built in 1s
+    paragraph-512-0_bge-small_dense_norerank_doc            R@5=0.760 hit@5=0.840 MRR=0.552 R@1024tok=0.444  0.1 ms/q
+    paragraph-512-0_bge-small_dense_norerank_open           R@5=0.164 hit@5=0.202 MRR=0.146 R@1024tok=0.101  0.1 ms/q
+    paragraph-512-0_bge-small_dense_norerank_open-titled    R@5=0.504 hit@5=0.597 MRR=0.373 R@1024tok=0.274  0.1 ms/q
+    paragraph-512-0_bge-small_hybrid_norerank_doc           R@5=0.776 hit@5=0.854 MRR=0.578 R@1024tok=0.490  0.1 ms/q
+    paragraph-512-0_bge-small_hybrid_norerank_open          R@5=0.229 hit@5=0.277 MRR=0.189 R@1024tok=0.140  0.5 ms/q
+    paragraph-512-0_bge-small_hybrid_norerank_open-titled   R@5=0.537 hit@5=0.632 MRR=0.384 R@1024tok=0.284  0.6 ms/q
+  [bge-base] index built in 1s
+    paragraph-512-0_bge-base_dense_norerank_doc             R@5=0.751 hit@5=0.835 MRR=0.554 R@1024tok=0.449  0.1 ms/q
+    paragraph-512-0_bge-base_dense_norerank_open            R@5=0.167 hit@5=0.204 MRR=0.146 R@1024tok=0.108  0.2 ms/q
+    paragraph-512-0_bge-base_dense_norerank_open-titled     R@5=0.514 hit@5=0.606 MRR=0.377 R@1024tok=0.283  0.2 ms/q
+    paragraph-512-0_bge-base_hybrid_norerank_doc            R@5=0.775 hit@5=0.860 MRR=0.581 R@1024tok=0.486  0.1 ms/q
+    paragraph-512-0_bge-base_hybrid_norerank_open           R@5=0.220 hit@5=0.265 MRR=0.185 R@1024tok=0.133  0.5 ms/q
+    paragraph-512-0_bge-base_hybrid_norerank_open-titled    R@5=0.526 hit@5=0.624 MRR=0.389 R@1024tok=0.280  0.6 ms/q
+  [e5-base] index built in 1s
+    paragraph-512-0_e5-base_dense_norerank_doc              R@5=0.771 hit@5=0.860 MRR=0.560 R@1024tok=0.457  0.1 ms/q
+    paragraph-512-0_e5-base_dense_norerank_open             R@5=0.186 hit@5=0.227 MRR=0.160 R@1024tok=0.116  0.3 ms/q
+    paragraph-512-0_e5-base_dense_norerank_open-titled      R@5=0.475 hit@5=0.561 MRR=0.360 R@1024tok=0.288  0.3 ms/q
+    paragraph-512-0_e5-base_hybrid_norerank_doc             R@5=0.775 hit@5=0.862 MRR=0.575 R@1024tok=0.486  0.2 ms/q
+    paragraph-512-0_e5-base_hybrid_norerank_open            R@5=0.231 hit@5=0.279 MRR=0.193 R@1024tok=0.135  0.7 ms/q
+    paragraph-512-0_e5-base_hybrid_norerank_open-titled     R@5=0.531 hit@5=0.621 MRR=0.396 R@1024tok=0.289  0.8 ms/q
+  [minilm] index built in 1s
+    paragraph-512-0_minilm_dense_norerank_doc               R@5=0.708 hit@5=0.801 MRR=0.536 R@1024tok=0.427  0.1 ms/q
+    paragraph-512-0_minilm_dense_norerank_open              R@5=0.142 hit@5=0.178 MRR=0.126 R@1024tok=0.089  0.2 ms/q
+    paragraph-512-0_minilm_dense_norerank_open-titled       R@5=0.426 hit@5=0.516 MRR=0.325 R@1024tok=0.248  0.2 ms/q
+    paragraph-512-0_minilm_hybrid_norerank_doc              R@5=0.756 hit@5=0.841 MRR=0.572 R@1024tok=0.471  0.2 ms/q
+    paragraph-512-0_minilm_hybrid_norerank_open             R@5=0.205 hit@5=0.255 MRR=0.181 R@1024tok=0.131  0.5 ms/q
+    paragraph-512-0_minilm_hybrid_norerank_open-titled      R@5=0.497 hit@5=0.589 MRR=0.365 R@1024tok=0.265  0.6 ms/q
+grid exit: 0

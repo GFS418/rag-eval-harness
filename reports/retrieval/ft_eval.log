@@ -1,0 +1,39 @@
+Corpus(qasper/dev: 281 docs, 13266 paragraphs, 1005 questions) -> retrieving for 1005 questions; 886 answerable with gold paragraphs
+[paragraph-256-0] 7550 chunks; 880/886 answerable questions have >=1 gold chunk
+  [bge-small-ft] index built in 133s
+    paragraph-256-0_bge-small-ft_dense_norerank_doc         R@5=0.709 hit@5=0.812 MRR=0.610 R@1024tok=0.698  0.0 ms/q
+    paragraph-256-0_bge-small-ft_dense_norerank_open-titled R@5=0.403 hit@5=0.505 MRR=0.347 R@1024tok=0.388  0.1 ms/q
+    paragraph-256-0_bge-small-ft_hybrid_norerank_doc        R@5=0.693 hit@5=0.808 MRR=0.585 R@1024tok=0.666  0.1 ms/q
+    paragraph-256-0_bge-small-ft_hybrid_norerank_open-titled R@5=0.395 hit@5=0.502 MRR=0.334 R@1024tok=0.376  0.6 ms/q
+[fixed-128-0] 11101 chunks; 819/886 answerable questions have >=1 gold chunk
+  [bge-small-ft] index built in 100s
+    fixed-128-0_bge-small-ft_dense_norerank_doc             R@5=0.566 hit@5=0.690 MRR=0.489 R@1024tok=0.676  0.0 ms/q
+    fixed-128-0_bge-small-ft_dense_norerank_open-titled     R@5=0.273 hit@5=0.376 MRR=0.257 R@1024tok=0.336  0.4 ms/q
+    fixed-128-0_bge-small-ft_hybrid_norerank_doc            R@5=0.519 hit@5=0.664 MRR=0.455 R@1024tok=0.637  0.1 ms/q
+    fixed-128-0_bge-small-ft_hybrid_norerank_open-titled    R@5=0.278 hit@5=0.371 MRR=0.254 R@1024tok=0.354  1.3 ms/q
+[fixed-512-0] 2883 chunks; 886/886 answerable questions have >=1 gold chunk
+  [bge-small-ft] index built in 124s
+    fixed-512-0_bge-small-ft_dense_norerank_doc             R@5=0.845 hit@5=0.900 MRR=0.651 R@1024tok=0.575  0.0 ms/q
+    fixed-512-0_bge-small-ft_dense_norerank_open-titled     R@5=0.539 hit@5=0.615 MRR=0.428 R@1024tok=0.349  0.1 ms/q
+    fixed-512-0_bge-small-ft_hybrid_norerank_doc            R@5=0.847 hit@5=0.901 MRR=0.650 R@1024tok=0.561  0.1 ms/q
+    fixed-512-0_bge-small-ft_hybrid_norerank_open-titled    R@5=0.607 hit@5=0.690 MRR=0.459 R@1024tok=0.360  0.7 ms/q
+Corpus(qasper/test: 416 docs, 19817 paragraphs, 1451 questions) -> retrieving for 1451 questions; 1297 answerable with gold paragraphs
+[paragraph-256-0] 10863 chunks; 1297/1297 answerable questions have >=1 gold chunk
+  [bge-small-ft] index built in 179s
+    paragraph-256-0_bge-small-ft_dense_norerank_doc         R@5=0.725 hit@5=0.864 MRR=0.658 R@1024tok=0.713  0.0 ms/q
+    paragraph-256-0_bge-small-ft_dense_norerank_open-titled R@5=0.364 hit@5=0.509 MRR=0.349 R@1024tok=0.352  0.4 ms/q
+    paragraph-256-0_bge-small-ft_hybrid_norerank_doc        R@5=0.688 hit@5=0.843 MRR=0.619 R@1024tok=0.669  0.1 ms/q
+    paragraph-256-0_bge-small-ft_hybrid_norerank_open-titled R@5=0.380 hit@5=0.530 MRR=0.337 R@1024tok=0.359  1.1 ms/q
+[fixed-128-0] 16072 chunks; 1241/1297 answerable questions have >=1 gold chunk
+  [bge-small-ft] index built in 113s
+    fixed-128-0_bge-small-ft_dense_norerank_doc             R@5=0.598 hit@5=0.777 MRR=0.561 R@1024tok=0.701  0.1 ms/q
+    fixed-128-0_bge-small-ft_dense_norerank_open-titled     R@5=0.249 hit@5=0.382 MRR=0.258 R@1024tok=0.310  0.7 ms/q
+    fixed-128-0_bge-small-ft_hybrid_norerank_doc            R@5=0.543 hit@5=0.724 MRR=0.511 R@1024tok=0.664  0.3 ms/q
+    fixed-128-0_bge-small-ft_hybrid_norerank_open-titled    R@5=0.249 hit@5=0.378 MRR=0.251 R@1024tok=0.323  2.5 ms/q
+[fixed-512-0] 4183 chunks; 1297/1297 answerable questions have >=1 gold chunk
+  [bge-small-ft] index built in 141s
+    fixed-512-0_bge-small-ft_dense_norerank_doc             R@5=0.838 hit@5=0.917 MRR=0.694 R@1024tok=0.568  0.0 ms/q
+    fixed-512-0_bge-small-ft_dense_norerank_open-titled     R@5=0.492 hit@5=0.614 MRR=0.439 R@1024tok=0.320  0.1 ms/q
+    fixed-512-0_bge-small-ft_hybrid_norerank_doc            R@5=0.847 hit@5=0.926 MRR=0.675 R@1024tok=0.546  0.1 ms/q
+    fixed-512-0_bge-small-ft_hybrid_norerank_open-titled    R@5=0.559 hit@5=0.677 MRR=0.473 R@1024tok=0.344  0.3 ms/q
+ft chain done

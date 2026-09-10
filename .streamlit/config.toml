@@ -1,0 +1,5 @@
+[server]
+# The watcher crawls every installed module (torch, transformers) and logs
+# import errors for optional deps; the app itself never reloads in production.
+fileWatcherType = "none"
+headless = true

@@ -1,0 +1,32 @@
+{
+ "name": "oracle__paragraph-256-0__k5",
+ "model": "sonnet-5",
+ "split": "test",
+ "mode": "oracle",
+ "n": 314,
+ "n_answerable": 302,
+ "n_unanswerable": 12,
+ "errors": 0,
+ "abstain_precision": 0.1794871794871795,
+ "abstain_recall": 0.5833333333333334,
+ "abstain_f1": 0.2745098039215686,
+ "abstain_rate": 0.12420382165605096,
+ "hallucination_rate": 0.5127388535031847,
+ "cost_usd_total": 1.3265060000000002,
+ "judge_cost_usd": 0.84116,
+ "judge_errors": 0,
+ "mean_input_tokens": 1084.9458598726114,
+ "mean_latency_s": null,
+ "token_f1": 0.4525680403589067,
+ "judge_correct": 0.8518518518518519,
+ "judge_correct_or_partial": 0.9148148148148149,
+ "nli_faithful": 0.4254545454545455,
+ "nli_frac_supported": 0.6481082251082252,
+ "retrieval_hit": 1.0,
+ "decomposition": {
+  "hit=True|correct=1.0": 230,
+  "hit=True|correct=0.0": 40,
+  "hit=False|correct=1.0": 0,
+  "hit=False|correct=0.0": 0
+ }
+}

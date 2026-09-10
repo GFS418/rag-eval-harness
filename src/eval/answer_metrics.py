@@ -104,22 +104,23 @@ def abstention_metrics(outcomes: Sequence[Outcome]) -> dict[str, float]:
 # --------------------------------------------------------------------------
 
 JUDGE_MODEL = "opus-5"
+# Low effort keeps Opus's (5x-priced) output tokens down; judge quality is
+# validated against human labels regardless of this setting.
+JUDGE_EFFORT = "low"
 
 CORRECTNESS_SYSTEM = """You grade answers to questions about scientific papers.
 You are given the question, one or more reference answers written by human annotators, and a candidate answer.
 Grade the candidate ONLY against the references:
 - "correct": conveys the same information as at least one reference (wording may differ; extra correct detail is fine).
 - "partial": captures part of a reference but omits or blurs something important.
-- "incorrect": contradicts the references or answers a different question.
-Give a one-sentence rationale."""
+- "incorrect": contradicts the references or answers a different question."""
 
 CORRECTNESS_SCHEMA = {
     "type": "object",
     "properties": {
         "verdict": {"type": "string", "enum": ["correct", "partial", "incorrect"]},
-        "rationale": {"type": "string"},
     },
-    "required": ["verdict", "rationale"],
+    "required": ["verdict"],
     "additionalProperties": False,
 }
 
@@ -158,7 +159,7 @@ def correctness_request(question_id: str, question: str, refs: Sequence[str], an
     refs_txt = "\n".join(f"- {r}" for r in refs)
     user = f"Question: {question}\n\nReference answers:\n{refs_txt}\n\nCandidate answer: {answer}"
     return Request(custom_id=f"corr|{question_id}|{tag}"[:64], model=JUDGE_MODEL,
-                   system=CORRECTNESS_SYSTEM, user=user, schema=CORRECTNESS_SCHEMA, effort="medium")
+                   system=CORRECTNESS_SYSTEM, user=user, schema=CORRECTNESS_SCHEMA, effort=JUDGE_EFFORT)
 
 
 def faithfulness_request(question_id: str, question: str, passages: Sequence[tuple[str, str]],
@@ -168,7 +169,7 @@ def faithfulness_request(question_id: str, question: str, passages: Sequence[tup
     ctxt = "\n".join(f"Claim {i} (cites {list(c)}): {t}" for i, (t, c) in enumerate(claims, start=1))
     user = f"Passages:\n{ptxt}\n\nQuestion: {question}\n\nClaims:\n{ctxt}"
     return Request(custom_id=f"faith|{question_id}|{tag}"[:64], model=JUDGE_MODEL,
-                   system=FAITHFULNESS_SYSTEM, user=user, schema=FAITHFULNESS_SCHEMA, effort="medium")
+                   system=FAITHFULNESS_SYSTEM, user=user, schema=FAITHFULNESS_SCHEMA, effort=JUDGE_EFFORT)
 
 
 def summarize_faithfulness(data: dict, n_claims: int) -> dict[str, float | bool]:

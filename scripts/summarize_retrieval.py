@@ -40,6 +40,8 @@ def load(split: str, metric: str):
         rows.append({**parse_name(d["config"]), "n": d["n_questions"], "n_chunks": d["n_chunks"],
                      "ms_per_query": d["ms_per_query"], "recall@1": d["recall@1"], "recall@5": d["recall@5"],
                      "recall@10": d["recall@10"], "hit@5": d["hit@5"], "mrr": d["mrr"], "ndcg@10": d["ndcg@10"],
+                     "recall@512tok": d.get("recall@512tok"), "recall@1024tok": d.get("recall@1024tok"),
+                     "recall@2048tok": d.get("recall@2048tok"),
                      f"{metric}_lo": ci.lo, f"{metric}_hi": ci.hi})
     return pd.DataFrame(rows), perq
 
@@ -90,13 +92,14 @@ def main() -> None:
           f"n = {table['n'].iloc[0]} answerable questions with gold chunks; 95% bootstrap CIs.\n",
           "## Top 15 configs\n",
           fmt(table.head(15), ["chunk", "embedder", "lexical", "scope", "recall@1", "recall@5",
-                               f"{args.metric}_lo", f"{args.metric}_hi", "recall@10", "mrr", "ndcg@10", "ms_per_query"]),
+                               f"{args.metric}_lo", f"{args.metric}_hi", "recall@10", "mrr",
+                               "recall@512tok", "recall@1024tok", "recall@2048tok", "ms_per_query"]),
           "\n## Marginal effect of each axis (paired over all other settings)\n",
           fmt(eff, ["axis", "level", "vs", "n_pairs", "n_questions", f"mean_diff_{args.metric}", "lo", "hi", "significant"]),
           "\n## Best config per scope\n",
           fmt(table.sort_values(args.metric, ascending=False).groupby("scope").head(3),
-              ["scope", "chunk", "embedder", "lexical", "recall@5", f"{args.metric}_lo", f"{args.metric}_hi", "mrr"])]
-    (rep / "ablation_table.md").write_text("\n".join(md))
+              ["scope", "chunk", "embedder", "lexical", "recall@5", f"{args.metric}_lo", f"{args.metric}_hi", "mrr", "recall@1024tok"])]
+    (rep / f"ablation_table_{args.metric.replace('@', '_')}.md").write_text("\n".join(md))
     print("\n".join(md))
 
 

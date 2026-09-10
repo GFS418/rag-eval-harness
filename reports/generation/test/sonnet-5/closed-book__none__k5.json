@@ -1,0 +1,23 @@
+{
+ "name": "closed-book__none__k5",
+ "model": "sonnet-5",
+ "split": "test",
+ "mode": "closed-book",
+ "n": 400,
+ "n_answerable": 302,
+ "n_unanswerable": 98,
+ "errors": 0,
+ "abstain_precision": 0.2903225806451613,
+ "abstain_recall": 0.826530612244898,
+ "abstain_f1": 0.4297082228116711,
+ "abstain_rate": 0.6975,
+ "hallucination_rate": 0.0425,
+ "cost_usd_total": 0.74285,
+ "judge_cost_usd": 0.333485,
+ "judge_errors": 0,
+ "mean_input_tokens": 570.95,
+ "mean_latency_s": null,
+ "token_f1": 0.3378598636553082,
+ "judge_correct": 0.5096153846153846,
+ "judge_correct_or_partial": 0.7884615384615384
+}

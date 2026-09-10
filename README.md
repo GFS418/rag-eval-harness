@@ -4,9 +4,8 @@
 evaluation harness that says how often it is right, how often it hallucinates,
 and which design choices matter, with confidence intervals.*
 
-> **Status: in progress.** Retrieval grid and fine-tuning are running; generation
-> and judge results land once the API key is configured. Numbers below are
-> placeholders until then.
+> **Status:** retrieval, generation and judge runs complete on the test split.
+> Human validation of the judge (Cohen's kappa) is the remaining step.
 
 **The evaluation is the project; the RAG pipeline is table stakes.**
 
@@ -14,10 +13,21 @@ and which design choices matter, with confidence intervals.*
 
 _(filled in from `reports/` when the test-split runs complete)_
 
-- **Retrieval (test, scoped to the paper):** recall@5 = TBD [CI], best config = TBD
-- **Answer quality (test):** judge-correct = TBD, faithful = TBD, hallucination rate = TBD
-- **Baselines:** closed-book (no retrieval) correct = TBD; oracle context correct = TBD
-- **Fine-tuned embedding:** +TBD recall@5 over the off-the-shelf model (paired bootstrap CI)
+- **Retrieval (test, 1,297 questions, scoped to the paper):** recall at a 1,024-token context budget
+  **0.713** [0.692, 0.733] with the fine-tuned bge-small + paragraph chunks + dense search,
+  versus 0.600 for the best off-the-shelf configuration (bge-small, hybrid). recall@5 0.725, MRR 0.658.
+- **Answer quality (test, 400-question stratified sample, Claude Sonnet 5):** correct on **74.2%**
+  [69.2, 79.1] of answerable questions (abstentions count as wrong); **93.2%** [90.4, 95.7] of answers
+  fully supported by the passages (Opus 5 judge); citation precision 95.6%; **hallucination rate 12.8%**
+  [9.5, 16.3], four-fifths of it from answering questions that had no answer in the paper.
+- **Baselines bracket the system:** closed-book (no retrieval) is correct on 17.5% of answerable questions;
+  oracle gold context reaches 76.2%, only +2 points over live retrieval, so generation, not retrieval, is now the ceiling.
+- **Cheaper is not worse:** Haiku 4.5 on the same retrieval is as correct (paired diff +0.008 [−0.039, +0.051]),
+  hallucinates *less* (−4.0 points [−6.8, −1.5]) because it abstains more, at a third of the cost.
+- **A negative result on instruments:** the open NLI cross-encoder agrees with the Opus judge at kappa 0.03.
+  Sentence-level NLI does not transfer to paragraph-length evidence; only the validated judge is reported.
+- **Fine-tuned embedding (test):** **+0.149** recall@1024 tokens over the same model off the shelf,
+  paired bootstrap CI [+0.127, +0.171]; +0.070 [+0.065, +0.075] pooled over all chunkings and scopes.
 - **Judge validation:** Cohen's kappa vs 100 human labels = TBD
 
 ## What this is
@@ -71,6 +81,133 @@ are reported rather than hidden.
 Retrieval metrics need no API calls, so the full grid runs; generation and
 judging run on the dev-selected shortlist plus the baselines.
 
+## Finding 1: the chunk-size "winner" depends on what you hold fixed
+
+Selection was done on the dev split (886 answerable questions with gold
+paragraphs, 144 configurations, no API calls). Sorted by **recall@5**, 512-token
+fixed windows win by a mile (+0.23 over 128-token windows, paired bootstrap CI
+[0.227, 0.240]). But five 512-token chunks are ~2,500 tokens, roughly half of a
+typical paper, while five 128-token chunks are an eighth of it. Comparing at a
+fixed *k* rewards reading more.
+
+Held at an equal **context budget of 1,024 tokens** handed to the generator,
+the ranking inverts: 512-token windows are the *worst* chunking (−0.062 vs
+128-token windows, CI [−0.068, −0.057]) and paragraph-packed 256-token chunks
+are the best (+0.014, CI [0.009, 0.019]). Respecting paragraph boundaries helps;
+overlap hurts at a fixed budget because it spends tokens on repeated text.
+
+| Axis (dev, doc scope pooled with open scopes) | Effect on recall@1024 tokens | 95% CI |
+|---|---|---|
+| hybrid (BM25 + dense, RRF) vs dense only | **+0.025** | [0.022, 0.027] |
+| bge-small vs bge-base | 0.000 | [−0.003, 0.004] |
+| e5-base vs bge-base | −0.007 | [−0.011, −0.003] |
+| MiniLM vs bge-base | −0.016 | [−0.020, −0.012] |
+| whole corpus (title in query) vs within-paper | −0.225 | [−0.230, −0.220] |
+| whole corpus (bare question) vs within-paper | −0.380 | [−0.384, −0.375] |
+
+Two practical conclusions: the 33M-parameter bge-small is as good as the
+110M bge-base here, so the deployed app uses the small one; and hybrid
+retrieval is a free, consistent gain. Full tables:
+`reports/retrieval/dev/ablation_table_recall_5.md` and
+`ablation_table_recall_1024tok.md`.
+
+## Finding 2: fine-tuning a 33M-parameter embedder beats every off-the-shelf model
+
+`bge-small` was fine-tuned for two epochs with a contrastive loss on 3,560
+(question, gold paragraph, BM25 hard negative) triples built from QASPER's
+**train** split only (papers disjoint from dev and test; a test enforces it).
+No synthetic data, no API calls, ~8 minutes on a laptop GPU.
+
+| Setting (dev, doc scope) | recall@1024 tokens, base | fine-tuned minus base [95% CI] |
+|---|---|---|
+| paragraph-256, dense | 0.592 | **+0.106** [+0.083, +0.131] |
+| paragraph-256, hybrid | 0.591 | +0.075 [+0.055, +0.097] |
+| fixed-128, dense | 0.578 | +0.099 [+0.073, +0.126] |
+| fixed-512, dense | 0.458 | +0.117 [+0.087, +0.144] |
+| paragraph-256, dense, whole corpus (title in query) | 0.328 | +0.060 [+0.035, +0.088] |
+
+The lift is consistent across chunkings and scopes and replicates on the test
+split (fixed-128 dense: +0.103 [+0.082, +0.122]). A side effect: once the dense
+model is fine-tuned, **hybrid fusion hurts** (0.666 vs 0.698 dense-only on
+dev), because reciprocal rank fusion pulls the better ranking toward BM25's.
+Hybrid is a free win for off-the-shelf embeddings and a small loss for an
+adapted one. Caveat: the gain includes adaptation to QASPER's question style,
+which is exactly what a production system would also get from in-domain data,
+but it should not be read as a general-purpose improvement to bge-small.
+
+## Finding 3: the reranker looked great on 100 questions and mostly vanished on 880
+
+A first pass on a 100-question sample showed the MiniLM cross-encoder adding
++0.095 recall@5. On the full dev split the paired estimate is +0.026 recall at
+a 1,024-token budget with a CI of [−0.004, +0.054], and MRR +0.044
+[+0.017, +0.071]: a real but small ranking improvement, at ~150 ms per query
+versus ~0.1 ms without. The larger `bge-reranker-base` was clearly *worse*
+(0.533 vs 0.591) and 1 s per query. And on top of the **fine-tuned** embedder
+the MiniLM reranker is significantly harmful (−0.078 [−0.107, −0.051]): a
+reranker caps retrieval at the reranker's own quality, so it only helps when
+it is better than the first-stage model. On the test split the pattern holds:
++0.073 [+0.051, +0.097] on top of off-the-shelf bge-small, −0.075
+[−0.098, −0.052] on top of the fine-tuned one. Confidence intervals are the
+whole point.
+
+## Finding 4: retrieval stopped being the bottleneck
+
+Generation and judging ran on a fixed stratified sample of 400 test questions
+(all 98 majority-unanswerable + 302 random answerable; the paid runs cost
+$14.65 in total via the Batches API). Every arm answers the same questions, so
+comparisons are paired.
+
+| Arm (top-5 passages, 400 questions) | Correct, all answerable | Faithful (judge) | Hallucination rate | Abstains | Input tok/query | $/query |
+|---|---|---|---|---|---|---|
+| **Sonnet 5, fine-tuned retrieval** (primary) | **0.742** [0.692, 0.791] | 0.932 | 0.128 | 0.190 | 2,163 | 0.0033 |
+| Sonnet 5, off-the-shelf retrieval (bge-small hybrid) | 0.709 [0.656, 0.758] | 0.924 | 0.133 | 0.207 | 2,186 | 0.0032 |
+| Haiku 4.5, fine-tuned retrieval | 0.709 [0.656, 0.758] | 0.962 | **0.087** | 0.285 | 1,574 | 0.0011 |
+| Sonnet 5, 512-token chunks (recall@5 "winner") | 0.745 [0.692, 0.791] | n/a | n/a | 0.205 | 4,275 | 0.0054 |
+| Sonnet 5, oracle gold paragraphs (upper bound) | 0.762 [0.712, 0.808] | n/a | n/a | 0.124 | 1,085 | 0.0021 |
+| Sonnet 5, closed-book (lower bound) | 0.175 [0.132, 0.219] | n/a | n/a | 0.698 | 571 | 0.0009 |
+
+- **Fine-tuned vs off-the-shelf retrieval:** +0.15 recall became +3.3 points of
+  correctness, paired diff on judged answers −0.023 [−0.069, +0.023] for the
+  off-the-shelf arm, i.e. not significant at n = 400. With top-5 hit rates of
+  0.86 vs 0.79 the generator usually has enough context either way.
+- **Oracle headroom is +2 points.** Perfect retrieval would not fix most
+  remaining errors; they sit in generation and in the judge's tolerance.
+- **Big chunks buy nothing at 2x the cost.** The recall@5 winner from Finding 1
+  matches the primary on correctness (+0.004 [−0.041, +0.052]) with twice the
+  prompt tokens.
+- **Closed-book is not zero.** 17.5% correct with no passages is the
+  memorisation floor for 2018–2020 arXiv papers. But of the 32 primary-arm
+  answers judged correct *despite* no gold chunk retrieved, closed-book got only
+  4 right: the rest were answered from non-gold passages, which means the
+  human evidence labels are not exhaustive and recall@k understates retrieval.
+
+## Finding 5: hallucinations are mostly failures to abstain
+
+| Arm | Answered an unanswerable question | Unsupported claim on an answerable one | Over-abstained on an answerable one |
+|---|---|---|---|
+| Sonnet 5, primary | 42 / 98 | 9 / 302 | 20 / 302 |
+| Sonnet 5, off-the-shelf retrieval | 43 / 98 | 10 / 302 | 28 / 302 |
+| Haiku 4.5, primary retrieval | **26 / 98** | 9 / 302 | 42 / 302 |
+
+Given passages, the generators almost never invent unsupported claims (3%).
+The dominant failure is answering a question the paper does not answer: Sonnet
+5 does it 43% of the time, Haiku 4.5 27%, and Haiku pays for that caution with
+more refusals on answerable questions. Abstention calibration, not grounding, is
+where the next gain is. Note that "unanswerable" is the majority label of 2–6
+annotators who disagreed 14% of the time, so some of these 42 are contestable.
+
+## Finding 6: the free faithfulness instrument does not work
+
+The NLI cross-encoder (`nli-deberta-v3-base`) called 17% of primary-arm answers
+fully supported; the Opus 5 judge called 93%. Cohen's kappa between them is
+0.030 [0.017, 0.047]; the NLI score ranks judge-faithful above judge-unfaithful
+answers with AUC 0.72, so it carries some signal but has no usable operating
+point. Its rate also tracks premise length (1.6% on 512-token chunks, 42% on
+short oracle paragraphs), which is a property of the model, not of the answers.
+Sentence-pair NLI does not transfer to multi-paragraph evidence. The judge is
+therefore the only faithfulness number reported, and it is validated against
+human labels below.
+
 ## Repository
 
 ```
@@ -109,3 +246,10 @@ _(to be completed with the results)_
   coverage under a threshold (default 0.5; sensitivity reported).
 - Exact search in numpy rather than FAISS: identical results at this corpus
   size; FAISS was removed after an OpenMP runtime conflict with PyTorch on macOS.
+- Generation and judge numbers are on a 400-question stratified sample of the
+  test split (all unanswerable + 302 answerable), not all 1,451, to keep API
+  spend under $15. Headline CIs are ±5 points; paired comparisons are tighter.
+- The judge ran at low effort with a verdict-only schema to fit the budget.
+- "Retrieval hit" uses human evidence labels that are not exhaustive; several
+  answers judged correct came from unlabelled passages.
+- Cost figures are Batches API list prices on 2026-09-09.

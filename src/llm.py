@@ -37,6 +37,14 @@ PRICE_PER_MTOK = {
 CACHE_PATH = Path("data/cache/llm.sqlite")
 
 
+def price_for(model_id: str) -> tuple[float, float]:
+    """Responses report dated ids (e.g. claude-haiku-4-5-20251001); match by prefix."""
+    for k, v in PRICE_PER_MTOK.items():
+        if model_id.startswith(k):
+            return v
+    return (0.0, 0.0)
+
+
 @dataclass(frozen=True)
 class Request:
     custom_id: str
@@ -83,7 +91,7 @@ class Response:
 
     @property
     def cost_usd(self) -> float:
-        pi, po = PRICE_PER_MTOK.get(self.model_id, (0.0, 0.0))
+        pi, po = price_for(self.model_id)
         return (self.input_tokens * pi + self.output_tokens * po) / 1e6
 
 
@@ -125,9 +133,27 @@ def _parse_message(custom_id: str, msg: Any, latency: float | None) -> Response:
                     latency, err, msg.model)
 
 
+def load_dotenv(path: Path = Path(".env")) -> None:
+    """Load KEY=VALUE lines from a gitignored .env into the environment.
+
+    Keeps the API key out of shell history, chat logs and the repo. Existing
+    environment variables win over the file."""
+    import os
+
+    if not path.exists():
+        return
+    for line in path.read_text().splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, v = line.split("=", 1)
+        os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+
+
 def _client():
     import anthropic
 
+    load_dotenv()
     return anthropic.Anthropic()
 
 
@@ -162,11 +188,14 @@ def run_batch(reqs: list[Request], cache: Cache | None = None, poll_s: int = 30,
     log(f"batch: {len(out)} cached, {len(todo)} to submit")
     if not todo:
         return out
-    by_id = {r.custom_id: r for r in todo}
+    # Batch custom_ids must match ^[a-zA-Z0-9_-]{1,64}$ and be unique; our
+    # readable ids contain "|", so use the cache key (unique per request).
+    by_id = {r.cache_key()[:48]: r for r in todo}
+    assert len(by_id) == len(todo), "duplicate requests in batch"
     client = _client()
     batch = client.messages.batches.create(requests=[
-        BatchRequest(custom_id=r.custom_id, params=MessageCreateParamsNonStreaming(**r.params()))
-        for r in todo])
+        BatchRequest(custom_id=bid, params=MessageCreateParamsNonStreaming(**r.params()))
+        for bid, r in by_id.items()])
     log(f"batch {batch.id} submitted")
     while True:
         b = client.messages.batches.retrieve(batch.id)
@@ -178,10 +207,10 @@ def run_batch(reqs: list[Request], cache: Cache | None = None, poll_s: int = 30,
     for res in client.messages.batches.results(batch.id):
         req = by_id[res.custom_id]
         if res.result.type == "succeeded":
-            resp = _parse_message(res.custom_id, res.result.message, None)
+            resp = _parse_message(req.custom_id, res.result.message, None)
         else:
             detail = getattr(getattr(res.result, "error", None), "type", res.result.type)
-            resp = Response(res.custom_id, None, res.result.type, 0, 0, None, f"batch:{detail}", req.model_id)
+            resp = Response(req.custom_id, None, res.result.type, 0, 0, None, f"batch:{detail}", req.model_id)
         cache.put(req, resp)
-        out[res.custom_id] = resp
+        out[req.custom_id] = resp
     return out

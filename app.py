@@ -22,7 +22,7 @@ from chunking import ChunkConfig, chunk_corpus, default_tokenizer  # noqa: E402
 from corpus.qasper import load_qasper  # noqa: E402
 from embed import get_embedder  # noqa: E402
 from generate import GenerationInput, Passage, build_request, parse_answer  # noqa: E402
-from llm import Cache, call  # noqa: E402
+from llm import Cache, call, load_dotenv  # noqa: E402
 from rerank import Reranker  # noqa: E402
 from retrieval import RetrievalConfig, Retriever  # noqa: E402
 
@@ -68,15 +68,19 @@ if st.button("Ask", type="primary") and question.strip():
     hits = retriever.retrieve("app", question, doc_id, cfg)
     passages = [Passage(h.chunk.chunk_id, h.chunk.text, h.chunk.section) for h in hits]
     inp = GenerationInput("app", question, title, passages, "rag")
-    has_key = bool(os.environ.get("ANTHROPIC_API_KEY")) or "ANTHROPIC_API_KEY" in st.secrets
+    load_dotenv()
+    try:
+        if "ANTHROPIC_API_KEY" in st.secrets:
+            os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
+    except Exception:          # no secrets.toml at all
+        pass
+    has_key = bool(os.environ.get("ANTHROPIC_API_KEY"))
     answer = None
     if spend_today() >= APP_CFG["daily_cap_usd"]:
         st.warning("Spend cap reached for this session; showing retrieval only.")
     elif not has_key:
         st.warning("No API key configured; showing retrieval only.")
     else:
-        if "ANTHROPIC_API_KEY" in st.secrets:
-            os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
         with st.spinner("Generating grounded answer..."):
             resp = call(build_request(inp, APP_CFG["model"], "app"), Cache(Path("data/cache/app_llm.sqlite")))
         st.session_state["spend"] = spend_today() + resp.cost_usd

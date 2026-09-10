@@ -1,0 +1,14 @@
+Corpus(qasper/dev: 281 docs, 13266 paragraphs, 1005 questions) -> retrieving for 1005 questions; 886 answerable with gold paragraphs
+[paragraph-256-0] 7550 chunks; 880/886 answerable questions have >=1 gold chunk
+  [bge-small-ft] index built in 1s
+    paragraph-256-0_bge-small-ft_dense_rerank-minilm-ce_doc R@5=0.638 hit@5=0.757 MRR=0.532 R@1024tok=0.620  15.7 ms/q
+    paragraph-256-0_bge-small-ft_hybrid_rerank-minilm-ce_doc R@5=0.636 hit@5=0.755 MRR=0.532 R@1024tok=0.619  0.6 ms/q
+Corpus(qasper/test: 416 docs, 19817 paragraphs, 1451 questions) -> retrieving for 1451 questions; 1297 answerable with gold paragraphs
+[paragraph-256-0] 10863 chunks; 1297/1297 answerable questions have >=1 gold chunk
+  [bge-small] index built in 0s
+    paragraph-256-0_bge-small_dense_rerank-minilm-ce_doc    R@5=0.659 hit@5=0.816 MRR=0.593 R@1024tok=0.637  117.6 ms/q
+    paragraph-256-0_bge-small_hybrid_rerank-minilm-ce_doc   R@5=0.658 hit@5=0.816 MRR=0.593 R@1024tok=0.637  3.6 ms/q
+  [bge-small-ft] index built in 1s
+    paragraph-256-0_bge-small-ft_dense_rerank-minilm-ce_doc R@5=0.660 hit@5=0.817 MRR=0.592 R@1024tok=0.637  3.8 ms/q
+    paragraph-256-0_bge-small-ft_hybrid_rerank-minilm-ce_doc R@5=0.659 hit@5=0.817 MRR=0.592 R@1024tok=0.637  0.3 ms/q
+rerank chain done

@@ -10,3 +10,8 @@ data/processed/*.npy
 .DS_Store
 .streamlit/secrets.toml
 .env
+
+# large or regenerable artefacts (rebuild with scripts/; see README)
+data/models/
+data/processed/retrieval/
+data/processed/finetune_pairs.jsonl
