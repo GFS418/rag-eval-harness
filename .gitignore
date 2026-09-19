@@ -15,3 +15,6 @@ data/processed/*.npy
 data/models/
 data/processed/retrieval/
 data/processed/finetune_pairs.jsonl
+
+# served to the deployed app from the Hugging Face Hub (scripts/publish_hf.py)
+data/app_bundle/

@@ -25,6 +25,32 @@ from pathlib import Path
 from corpus.base import Corpus, Document, Paragraph, Question
 
 FLOAT_PREFIX = "FLOAT SELECTED"
+RELEASE_URLS = {
+    "train": "https://qasper-dataset.s3.us-west-2.amazonaws.com/qasper-train-dev-v0.3.tgz",
+    "dev": "https://qasper-dataset.s3.us-west-2.amazonaws.com/qasper-train-dev-v0.3.tgz",
+    "test": "https://qasper-dataset.s3.us-west-2.amazonaws.com/qasper-test-and-evaluator-v0.3.tgz",
+}
+
+
+def ensure_qasper(split: str, root: str | Path = "data/raw/qasper") -> Path:
+    """Download and extract the public v0.3 release if the split file is missing
+    (used by the deployed app, whose container starts without data/raw)."""
+    import tarfile
+    import urllib.request
+
+    root = Path(root)
+    path = root / f"qasper-{split}-v0.3.json"
+    if path.exists():
+        return path
+    root.mkdir(parents=True, exist_ok=True)
+    tgz = root / f"{split}.tgz"
+    urllib.request.urlretrieve(RELEASE_URLS[split], tgz)
+    with tarfile.open(tgz) as tf:
+        tf.extractall(root, filter="data")
+    tgz.unlink()
+    if not path.exists():
+        raise FileNotFoundError(f"{path} missing after extracting the release tarball")
+    return path
 _WS = re.compile(r"\s+")
 
 
@@ -121,7 +147,7 @@ def _build_question(qa: dict, doc: Document, exact: dict[str, str],
 
 
 def load_qasper(split: str, root: str | Path = "data/raw/qasper") -> Corpus:
-    path = Path(root) / f"qasper-{split}-v0.3.json"
+    path = ensure_qasper(split, root)
     raw = json.loads(path.read_text())
     documents: dict[str, Document] = {}
     questions: list[Question] = []

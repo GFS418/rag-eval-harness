@@ -119,7 +119,8 @@ retrieval is a free, consistent gain. Full tables:
 `bge-small` was fine-tuned for two epochs with a contrastive loss on 3,560
 (question, gold paragraph, BM25 hard negative) triples built from QASPER's
 **train** split only (papers disjoint from dev and test; a test enforces it).
-No synthetic data, no API calls, ~8 minutes on a laptop GPU.
+No synthetic data, no API calls, ~8 minutes on a laptop GPU. Weights:
+[GFS418/bge-small-qasper-ft](https://huggingface.co/GFS418/bge-small-qasper-ft) on the Hugging Face Hub.
 
 | Setting (dev, doc scope) | recall@1024 tokens, base | fine-tuned minus base [95% CI] |
 |---|---|---|
@@ -264,7 +265,7 @@ tests/             chunking, adapter, metrics, stats, index, generation, leakage
 app.py             Streamlit demo
 ```
 
-Reproduce: `pip install -r requirements.txt`, download QASPER v0.3 into
+Reproduce: `pip install -r requirements-project.txt`; QASPER v0.3 downloads itself into
 `data/raw/qasper/`, then `python scripts/run_retrieval.py --split dev ...`,
 `python scripts/summarize_retrieval.py`, `python scripts/run_generation.py ...`,
 `python scripts/run_judge.py ...`. Every model call is cached, so re-runs are free.

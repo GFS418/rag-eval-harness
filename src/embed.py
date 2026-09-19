@@ -62,6 +62,15 @@ def _register_local_arms(models_dir: Path = Path("data/models")) -> None:
 _register_local_arms()
 
 
+def register_hub_arm(key: str, repo_id: str, base: str = "bge-small") -> None:
+    """Register a fine-tuned arm served from the Hugging Face Hub (deployed app)
+    unless the same key already resolves to local weights."""
+    if key in ARMS and Path(ARMS[key].model_name).exists():
+        return
+    b = ARMS[base]
+    register_arm(EmbeddingArm(key, repo_id, b.query_prefix, b.passage_prefix, b.max_seq_length))
+
+
 class Embedder(Protocol):
     arm: EmbeddingArm
 

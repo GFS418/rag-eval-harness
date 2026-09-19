@@ -8,5 +8,6 @@
   "top_k": 5,
   "model": "sonnet-5",
   "daily_cap_usd": 1.0,
-  "_note": "selected on dev, confirmed on test: fine-tuned bge-small, paragraph-256 chunks, dense only (hybrid and reranking both hurt on top of the fine-tuned model)"
+  "_note": "selected on dev, confirmed on test; hf_repo serves the fine-tuned weights and the app bundle to the deployed app",
+  "hf_repo": "GFS418/bge-small-qasper-ft"
 }

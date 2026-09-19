@@ -1,0 +1,537 @@
+[
+ {
+  "question_id": "f637bba86cfb94ca8ac4b058faf839c257d5eaa0",
+  "doc_id": "1806.07042",
+  "title": "Response Generation by Context-aware Prototype Editing",
+  "question": "What model architecture do they use for the decoder?",
+  "label": "judged correct and faithful",
+  "reference_answers": [
+   "a GRU language model",
+   "a GRU language model",
+   "GRU"
+  ],
+  "abstain": false,
+  "answer": "They use a GRU-based decoder with attention within a Seq2Seq architecture, where the edit vector is concatenated with each input word embedding fed to the decoder.",
+  "claims": [
+   {
+    "text": "The decoder is a Seq2Seq model with attention that integrates the edit vector into the decoder.",
+    "chunk_ids": [
+     "1806.07042#19"
+    ],
+    "passage_numbers": [
+     3
+    ]
+   },
+   {
+    "text": "The decoder generates the response using a GRU language model with attention.",
+    "chunk_ids": [
+     "1806.07042#19"
+    ],
+    "passage_numbers": [
+     3
+    ]
+   },
+   {
+    "text": "At each time step, the input to the decoder is the previous hidden state plus the concatenation of the word embedding and the edit vector.",
+    "chunk_ids": [
+     "1806.07042#19",
+     "1806.07042#20"
+    ],
+    "passage_numbers": [
+     3,
+     1
+    ]
+   }
+  ],
+  "passages": [
+   {
+    "chunk_id": "1806.07042#20",
+    "section": "Context-Aware Neural Editor",
+    "text": "where INLINEFORM0 and INLINEFORM1 are two parameters. Equation EQREF18 and EQREF19 are the attention mechanism BIBREF30 , that mitigates the long-term dependency issue of the original Seq2Seq model. We append the edit vector to every input embedding of the decoder in Equation EQREF16 , so the edit information can be utilized in the entire generation process.\n\nWe learn our response generation model by minimizing the negative log likelihood of INLINEFORM0 DISPLAYFORM0\n\nWe implement our model by PyTorch . We employ the Adam algorithm BIBREF31 to optimize the objective function with a batch size of 128. We set the initial learning rate as INLINEFORM0 and reduce it by half if perplexity on validation begins to increase. We will stop training if the perplexity on validation keeps increasing in two successive epochs. ."
+   },
+   {
+    "chunk_id": "1806.07042#12",
+    "section": "Background",
+    "text": "the edit vector INLINEFORM15 is sampled from a distribution whose parameters are governed by the concatenation of INLINEFORM16 and INLINEFORM17 . Finally, the edit vector and output of the encoder are fed to the decoder to generate INLINEFORM18 ."
+   },
+   {
+    "chunk_id": "1806.07042#19",
+    "section": "Context-Aware Neural Editor",
+    "text": "It should be noted that there are several alternative approaches to compute INLINEFORM0 and INLINEFORM1 for this task, such as applying memory networks, latent variables, and other complex network architectures. Here, we just use a simple method, but it yields interesting results on this task. We will further illustrate our experiment findings in the next section.\n\nWe build our prototype editing model upon a Seq2Seq with an attention mechanism model, which integrates the edit vector into the decoder.\n\nThe decoder takes INLINEFORM0 as an input and generates a response by a GRU language model with attention. The hidden state of the decoder is acquired by DISPLAYFORM0\n\nwhere the input of INLINEFORM0 -th time step is the last step hidden state and the concatenation of the INLINEFORM1 -th word embedding and the edit vector obtained in Equation EQREF14 . Then we compute a context vector INLINEFORM2 , which is a linear combination of INLINEFORM3 : DISPLAYFORM0\n\nwhere INLINEFORM0 is given by DISPLAYFORM0\n\nwhere INLINEFORM0 and INLINEFORM1 are parameters. The generative probability distribution is given by DISPLAYFORM0"
+   },
+   {
+    "chunk_id": "1806.07042#23",
+    "section": "Baseline",
+    "text": "S2SA-MMI: We employed the bidirectional-MMI decoder as in BIBREF10 . The hyperparameter INLINEFORM0 is set as 0.5 according to the paper's suggestion. 200 candidates are sampled from beam search for reranking.\n\nCVAE: The conditional variational auto-encoder is a popular method of increasing the diversity of response generation BIBREF34 . We use the published code at https://github.com/snakeztc/NeuralDialog-CVAE, and conduct small adaptations for our single turn scenario.\n\nRetrieval: We compare our model with two retrieval-based methods to show the effect of editing. One is Retrieval-default that directly regards the top-1 result given by Lucene as the reply. The second one is Retrieval-Rerank, where we first retrieve 20 response candidates, and then employ a dual-LSTM model BIBREF6 to compute matching degree between current context and the candidates. The matching model is implemented with the same setting in BIBREF6 , and is trained on the training data set where negative instances are randomly sampled with a ratio of INLINEFORM0 ."
+   },
+   {
+    "chunk_id": "1806.07042#5",
+    "section": "Introduction",
+    "text": "step word embedding and the edit vector as inputs, and predicts the next word with an attention mechanism."
+   }
+  ]
+ },
+ {
+  "question_id": "376e8ed6e039e07c892c77b7525778178d56acb7",
+  "doc_id": "1908.07491",
+  "title": "Controversy in Context",
+  "question": "did they crowdsource annotations?",
+  "label": "judged correct and faithful",
+  "reference_answers": [
+   "Yes",
+   "Yes",
+   "Yes"
+  ],
+  "abstain": false,
+  "answer": "Yes, they used crowdsourced annotations for Dataset III.",
+  "claims": [
+   {
+    "text": "3561 concepts under edit protection were crowd-annotated with 10 or more annotators per concept.",
+    "chunk_ids": [
+     "1908.07491#4"
+    ],
+    "passage_numbers": [
+     1
+    ]
+   },
+   {
+    "text": "Annotators were instructed to mark if a topic was one that people are likely to argue about, based on the topic and its Wikipedia description.",
+    "chunk_ids": [
+     "1908.07491#4"
+    ],
+    "passage_numbers": [
+     1
+    ]
+   },
+   {
+    "text": "Average pairwise kappa agreement on this task was 0.532, and annotations were normalized to controversiality scores on a 0-10 scale.",
+    "chunk_ids": [
+     "1908.07491#4"
+    ],
+    "passage_numbers": [
+     1
+    ]
+   }
+  ],
+  "passages": [
+   {
+    "chunk_id": "1908.07491#4",
+    "section": "Estimating a concept's controversiality level ::: Datasets",
+    "text": "Dataset II is based on a more recent version of the Wikipedia list of controversial issues (May 2017). As positive examples we take, from this list, all concepts which appear more than 50 times in Wikipedia. This leaves 608 controversial Wikipedia concepts. For negative examples, we follow BIBREF1, BIBREF4 and select a like number of concepts at random. Here too, since each concept only has a binary label, we convert our estimation into a binary classification, and report accuracy.\n\nDataset III is extracted from 3561 concepts whose Wikipedia pages are under edit protection, assuming that many of them are likely to be controversial. They were then crowd-annotated, with 10 or more annotators per concept. The annotation instructions were: \u201cGiven a topic and its description on Wikipedia, mark if this is a topic that people are likely to argue about.\u201d. Average pairwise kappa agreement on this task was 0.532. Annotations were normalized to controversiality scores on an integer scale of 0 - 10. We used this dataset for testing the models trained on Dataset I."
+   },
+   {
+    "chunk_id": "1908.07491#1",
+    "section": "Introduction",
+    "text": "Focusing here on Wikipedia concepts, we adopt as an initial \u201cground truth\u201d the titles listed on the Wikipedia list of controversial issues, which is curated based on so-called \u201cedit wars\u201d. We then manually annotate a set of Wikipedia titles which are locked for editing, and evaluate our system on this much larger and more challenging dataset.\n\nTo estimate the level of controversy associated with a Wikipedia concept, we propose to simply examine the words in the sentences in which the concept is referenced. Because a concept can often be found in multiple contexts, the estimation can be seen as reflecting the \u201cgeneral opinion\u201d about it in the corpus. This contrasts previous works, which consider this a binary problem, and employ a complex combination of features extracted from Wikipedia's article contents and inter-references, and more extensively \u2013 from the rich edit history thereof."
+   },
+   {
+    "chunk_id": "1908.07491#0",
+    "section": "Introduction",
+    "text": "Indicating that a web page is controversial, or disputed - for example, in a search result - facilitates an educated consumption of the information therein, suggesting the content may not represent the \u201cfull picture\u201d. Here, we consider the problem of estimating the level of controversiality associated with a given Wikipedia concept (title). We demonstrate that the textual contexts in which the concept is referenced can be leveraged to facilitate this.\n\nThe definition of which concepts are controversial is controversial by itself; an accurate definition of this elusive notion attracted the attention of researchers from various fields, see for example some recent attempts in BIBREF0, BIBREF1, BIBREF2.\n\nMost people would agree, for example, that Global warming is a controversial concept, whereas Summer is not. However, the concept Pollution may be seen as neutral by some, yet controversial by others, who associate it with environmental debates. In other words, different people may have different opinions, potentially driven by different contexts salient in their mind. Yet, as reported in the sequel, an appreciable level of agreement can be reached, even without explicit context."
+   },
+   {
+    "chunk_id": "1908.07491#3",
+    "section": "Related work",
+    "text": "BIBREF7 detect controversy in news items by inspecting terms with excessive frequency in contexts containing sentiment words, and BIBREF8 study controversy in user comments of news articles using lexicons. Finally, BIBREF9 suggest that controversy is not a universal but rather a community-related concept, and, therefore, should be studied in context.\n\nHere we measure a concept's controversiality from the explicit sentence-level context in which it is mentioned. In this, our approach is reminiscent of BIBREF10, who suggest a similar approach to detect abstract concepts.\n\nWe consider three datasets, two of which are a contribution of this work.\n\nDataset I consists of 480 concepts previously analyzed in BIBREF1, BIBREF4. 240 are positive examples, titles from the Wikipedia list of controversial issues, and 240 are negative examples chosen at random and exclusive of the positives. Over this dataset, we compare the methodology suggested here to those reported by BIBREF1, BIBREF4. As the latter report overall accuracy of their binary prediction, we convert our controversiality estimates to a binary classification by classifying the higher-scored half as controversial, and the lower half as non-controversial."
+   },
+   {
+    "chunk_id": "1908.07491#5",
+    "section": "Estimating a concept's controversiality level ::: Datasets",
+    "text": "In all datasets, to obtain the sentence-level context of the concepts (positive and negative), we randomly select two equal-sized sets of Wikipedia sentences, that explicitly reference these concepts \u2013 i.e., that contain a hyperlink to the article titled by the concept. Importantly, in each sentence we mask the words that reference the concept \u2013 i.e., the surface form of the hyperlink leading to the concept \u2013 by a fixed, singular token, thus focusing solely on the context within which the concepts are mentioned.\n\nWe employ three estimation schemes based on the textual contexts of concepts. The first relies on the context via pre-trained word embeddings of the concepts, which, in turn, are derived from the concepts' distributional properties in large samples of free texts. The other two schemes directly access the sentence-level contexts of the concepts."
+   }
+  ]
+ },
+ {
+  "question_id": "c19e9fd2f1c969e023fb99b74e78eb1f3db8e162",
+  "doc_id": "2003.13016",
+  "title": "A Dataset of German Legal Documents for Named Entity Recognition",
+  "question": "Was the automatic annotation evaluated?",
+  "label": "judged correct and faithful",
+  "reference_answers": [
+   "No",
+   "No",
+   "Yes",
+   "Yes"
+  ],
+  "abstain": false,
+  "answer": "Yes, the automatic annotation (NER models) was evaluated using stratified 10-fold cross-validation, testing CRFs and BiLSTM variants, with BiLSTMs achieving the best F1 scores of 95.46 (fine-grained) and 95.95 (coarse-grained).",
+  "claims": [
+   {
+    "text": "CRFs and BiLSTMs were tested as automatic annotation models on both fine-grained and coarse-grained annotation schemes.",
+    "chunk_ids": [
+     "2003.13016#34"
+    ],
+    "passage_numbers": [
+     3
+    ]
+   },
+   {
+    "text": "Performance was evaluated using stratified 10-fold cross-validation.",
+    "chunk_ids": [
+     "2003.13016#34"
+    ],
+    "passage_numbers": [
+     3
+    ]
+   },
+   {
+    "text": "BiLSTMs performed best, reaching F1 scores of 95.46 for fine-grained and 95.95 for coarse-grained classification, while CRFs reached up to 93.23 F1.",
+    "chunk_ids": [
+     "2003.13016#34"
+    ],
+    "passage_numbers": [
+     3
+    ]
+   }
+  ],
+  "passages": [
+   {
+    "chunk_id": "2003.13016#29",
+    "section": "Description of the Dataset ::: Annotation of Named Entities",
+    "text": "The dataset was originally annotated by the first author. To evaluate and potentially improve the quality of the annotations, part of the dataset was annotated by a second linguist (using the annotation guidelines specifically prepared for its construction). We selected a small part that could be annotated in approx. two weeks. For the sentence extraction we paid special attention to the anonymised mentions of person, location or organization entities, because these are usually explained at their first mention. The resulting sample consisted of 2005 sentences with a broad variety of different entities (3 % of all sentences from each federal court). The agreement between the two annotators was measured using Kappa on a token basis. All class labels were taken into account in accordance with the IOB2 scheme BIBREF18. The inter-annotator agreement is 0.89, i. e., there is mostly very good agreement between the two annotators. Differences were in the identification of court decision and legal literature. Some unusual references of court decision (consisting only of decision type, court, date, file number) were not annotated such as `Urteil des Landgerichts Darmstadt vom 16. April 2014 \u2013 7 S 8/"
+   },
+   {
+    "chunk_id": "2003.13016#31",
+    "section": "Description of the Dataset ::: Annotation of Named Entities",
+    "text": "The second annotator had difficulties annotating the class law, not all instances were identified (`\u00a7 272 Abs. 1a und 1b HGB', `\u00a7 3c Abs. 2 Satz 1 EStG'), others only partially (`\u00a7 716 in Verbindung mit' in `\u00a7 716 in Verbindung mit \u00a7\u00a7 321 , 711 ZPO'). Some titles of contract were not recognised and annotated (`BAT', `TV-L', `TV\u00dc-L\u00e4nder' etc.).\n\nThis evaluation has revealed deficiencies in the annotation guidelines, especially regarding court decision and legal literature as well as non-entities. It would also be helpful for the identification and classification to list well-known sources of law, court decision, legal literature etc."
+   },
+   {
+    "chunk_id": "2003.13016#34",
+    "section": "Evaluation",
+    "text": "The dataset was thoroughly evaluated, see leitner2019fine for more details. As state of the art models, Conditional Random Fields (CRFs) and bidirectional Long-Short Term Memory Networks (BiLSTMs) were tested with the two variants of annotation. For CRFs, these are: CRF-F (with features), CRF-FG (with features and gazetteers), CRF-FGL (with features, gazetteers and lookup). For BiLSTM, we used models with pre-trained word embeddings BIBREF22: BiLSTM-CRF BIBREF23, BiLSTM-CRF+ with character embeddings from BiLSTM BIBREF24, and BiLSTM-CNN-CRF with character embeddings from CNN BIBREF25. To evaluate the performance we used stratified 10-fold cross-validation. As expected, BiLSTMs perform best (see Table ). The F$_1$ score for the fine-grained classification reaches 95.46 and 95.95 for the coarse-grained one. CRFs reach up to 93.23 F$_1$ for the"
+   },
+   {
+    "chunk_id": "2003.13016#26",
+    "section": "Description of the Dataset ::: Original Source Documents",
+    "text": "The annotated documents are available in CoNNL-2002. The information originally represented by and through the XML markup was lost in the conversion process. We decided to use CoNNL-2002 because our primary focus was on the NER task and experiments. CoNNL is one of the best practice formats for NER datasets. All relevant tools support CoNNL, including WebAnno for manual annotation. Nevertheless, it is possible, of course, to re-insert the annotated information back into the XML documents.\n\nThe dataset consists of 66,723 sentences with 2,157,048 tokens (incl. punctuation), see Table . The sizes of the seven court-specific datasets varies between 5,858 and 12,791 sentences, and 177,835 to 404,041 tokens. The distribution of annotations on a per-token basis corresponds to approx. 19\u201323 %. The Federal Patent Court (BPatG) dataset contains the lowest number of annotated entities (10.41 %)."
+   },
+   {
+    "chunk_id": "2003.13016#27",
+    "section": "Description of the Dataset ::: Annotation of Named Entities",
+    "text": "The dataset includes two different versions of annotations, one with a set of 19 fine-grained semantic classes and another one with a set of 7 coarse-grained classes (Table ). There are 53,632 annotated entities in total, the majority of which (74.34 %) are legal entities, the others are person, location and organization (25.66 %). Overall, the most frequent entities are law GS (34.53 %) and court decision RS (23.46 %). The other legal classes (ordinance VO, European legal norm EUN, regulation VS, contract VT, and legal literature LIT) are much less frequent (1\u20136 % each). Even less frequent (less than 1 %) are lawyer AN, street STR, landscape LDS, and brand MRK."
+   }
+  ]
+ },
+ {
+  "question_id": "37e6ce5cfc9d311e760dad8967d5085446125408",
+  "doc_id": "2002.08902",
+  "title": "Application of Pre-training Models in Named Entity Recognition",
+  "question": "what were roberta's results?",
+  "label": "judged correct and faithful",
+  "reference_answers": [
+   " the RoBERTa model achieves the highest F1 value of 94.17",
+   "F1 value of 94.17"
+  ],
+  "abstain": false,
+  "answer": "RoBERTa achieved the best NER performance among the tested pre-training models, reaching an F1 score of 94.17, which was the highest (SOTA) result in the study.",
+  "claims": [
+   {
+    "text": "RoBERTa achieved the highest F1 value of 94.17 among the pre-training models tested.",
+    "chunk_ids": [
+     "2002.08902#10"
+    ],
+    "passage_numbers": [
+     2
+    ]
+   },
+   {
+    "text": "RoBERTa obtained the SOTA result compared to BERT and ERNIE.",
+    "chunk_ids": [
+     "2002.08902#12",
+     "2002.08902#13"
+    ],
+    "passage_numbers": [
+     1,
+     3
+    ]
+   },
+   {
+    "text": "This was attributed to RoBERTa removing the NSP sentence-level pre-training task and using dynamic masking, which better suited the NER task.",
+    "chunk_ids": [
+     "2002.08902#12",
+     "2002.08902#8",
+     "2002.08902#13"
+    ],
+    "passage_numbers": [
+     1,
+     4,
+     3
+    ]
+   }
+  ],
+  "passages": [
+   {
+    "chunk_id": "2002.08902#12",
+    "section": "Discussion",
+    "text": "Secondly, for pre-training models with the same model structure, RoBERTa obtained the result of SOTA. BERT and ERNIE retain the sentence pre-training tasks of NSP and DLM respectively, while RoBERTa removes the sentence-level pre-training task because Liu $et$ $al$. BIBREF9 hypothesizes the model can not learn long-range dependencies. The results confirm the above hypothesis. For the NER task, sentence-level pre-training tasks do not improve performance. In contrast, RoBERTa removes the NSP task and improves the performance of entity recognition. As described by Liu $et$ $al$. BIBREF9, the NSP and the MLP are designed to improve the performance on specific downstream tasks, such as the SQuAD 1.1, which requires reasoning about the relationships between pairs of sentences. However, the results show that the NER task does not rely on sentence-level knowledge, and using sentence-level pre-training tasks hurts performance because the pre-training models may not able to learn long-range dependencies."
+   },
+   {
+    "chunk_id": "2002.08902#10",
+    "section": "Experiments and Results",
+    "text": "The experiments were conducted on the AI Studio platform launched by the Baidu. This platform has a build-in deep learning framework PaddlePaddle and is equipped with a V100 GPU. The pre-training models mentioned above were downloaded by PaddleHub, which is a pre-training model management toolkit. It is also launched by the Baidu. For hyper-parameter configuration, we adjusted them according to the performance on development sets. In this article, the number of the epoch is 2, the learning rate is 5e-5, and the batch size is 16.\n\nThe BiGRU+CRF model was used as the baseline model. Table I shows that the baseline model has already achieved an F1 value of 90.32. However, using the pre-training models can significantly increase F1 values by 1 to 2 percentage points except for ERNIE-tiny model. Among the pre-training models, the RoBERTa model achieves the highest F1 value of 94.17, while the value of ERNIE-tiny is relatively low, even 4 percentage points lower than the baseline model.\n\nThis section discusses the experimental results in detail. We will analyze the different model structures and pre-training tasks on the effect of the NER task."
+   },
+   {
+    "chunk_id": "2002.08902#13",
+    "section": "Discussion",
+    "text": "Moreover, as mentioned before, RoBERTa could adapt to different masking strategies and acquires richer semantic representations with the dynamic masking strategy. In contrast, BERT and ERNIE use the static masking strategy in every epoch. In addition, the results in this paper show that the F1 value of ERNIE is slightly lower than BERT. We infer that ERNIE may introduce segmentation errors when performing entity-level and phrase-level masking.\n\nIn this paper, we exploit four pre-training models (BERT, ERNIE, ERNIE2.0-tiny, RoBERTa) for the NER task. Firstly, we introduce the architecture and pre-training tasks of these pre-training models. Then, we apply the pre-training models to the target task through a fine-tuning approach. During fine-tuning, we add a fully connection layer and a CRF layer after the output of pre-training models. Results showed that using the pre-training models significantly improved the performance of recognition. Moreover, results provided a basis that the structure and pre-training tasks in RoBERTa model are more suitable for NER tasks.\n\nIn future work, investigating the model structure of different downstream tasks might prove important."
+   },
+   {
+    "chunk_id": "2002.08902#8",
+    "section": "Methods ::: ERNIE2.0-tiny",
+    "text": "ERNIE2.0-tiny compresses ERNIE 2.0 through the method of structure compression and model distillation. The number of Transformer layers is reduced from 12 to 3, and the number of hidden units is increased from 768 to 1024.\n\nERNIE2.0-tiny's pre-training task is called continual pre-training. The process of continual pre-training including continually constructing unsupervised pre-training tasks with big data and updating the model via multi-task learning. These tasks include word-aware tasks, structure-aware tasks, and semantic-aware tasks.\n\nRoBERTa is similar to BERT, except that it changes the masking strategy and removes the NSP taskBIBREF9.\n\nLike ERNIE, RoBERTa has the same model structure as BERT, with 12 Transformer layers, 768 hidden units, and 12 self-attention heads.\n\nRoBERTa removes the NSP task in BERT and changes the masking strategy from static to dynamicBIBREF9. BERT performs masking once during data processing, resulting in a single static mask. However, RoBoERTa changes masking position in every epoch. Therefore, the pre-training model will gradually adapt to different masking strategies and learn different language representations."
+   },
+   {
+    "chunk_id": "2002.08902#5",
+    "section": "Related work ::: Pre-training model",
+    "text": "As mentioned above, the performance of deep learning methods depends on the quality of labeled training sets. Therefore, researchers have proposed pre-training models to improve the performance of the NLP tasks through a large number of unlabeled data. Recent research on pre-training models has mainly focused on BERT. For example, R. Qiao $et$ $al$. and N. Li $et$ $al$. BIBREF13BIBREF14 used BERT and ELMO respectively to improve the performance of entity recognition in chinese clinical records. E. Alsentzer $et$ $al$. , L. Yao $et$ $al$. and K. Huang $et$ $al$. BIBREF15BIBREF16BIBREF17 used domain-specific corpus to train BERT(the model structure and pre-training tasks are unchanged), and used this model for a domain-specific task, obtaining the result of SOTA.\n\nIn this section, we first introduce the four pre-trained models (BERT, ERNIE, ERNIE 2.0-tiny, RoBERTa), including their model structures and pre-training tasks. Then we introduce how to use them for the NER task through fine-tuning."
+   }
+  ]
+ },
+ {
+  "question_id": "38af3f25c36c3725a31304ab96e2c200c55792b4",
+  "doc_id": "1806.03369",
+  "title": "#SarcasmDetection is soooo general! Towards a Domain-Independent Approach for Detecting Sarcasm",
+  "question": "what training data was used?",
+  "label": "judged correct and faithful",
+  "reference_answers": [
+   "Twitter dataset;  Amazon product reviews",
+   "Twitter product reviews containing exactly one of the trailing hashtags \u201c#sarcasm,\u201d \u201c#happiness,\u201d \u201c#sadness,\u201d \u201c#anger,\u201d \u201c#surprise,\u201d \u201c#fear,\u201d and \u201c#disgust\u201d, and Amazon product reviews from the publicly available sarcasm corpus developed by Filatova FILATOVA12.661.",
+   "Twitter, and Amazon product reviews"
+  ],
+  "abstain": false,
+  "answer": "The training data came from two domains: an Amazon product reviews sarcasm corpus (Filatova's dataset) and a Twitter dataset the authors collected themselves.",
+  "claims": [
+   {
+    "text": "Data was taken from two domains: Twitter, and Amazon product reviews, with the Amazon reviews from Filatova's publicly available sarcasm corpus.",
+    "chunk_ids": [
+     "1806.03369#9"
+    ],
+    "passage_numbers": [
+     3
+    ]
+   },
+   {
+    "text": "The Twitter dataset was built by downloading tweets containing exactly one trailing hashtag from '#sarcasm' or six emotion hashtags (happiness, sadness, anger, surprise, fear, disgust), labeling #sarcasm tweets as sarcastic and the emotion-hashtag tweets as non-sarcastic.",
+    "chunk_ids": [
+     "1806.03369#9"
+    ],
+    "passage_numbers": [
+     3
+    ]
+   },
+   {
+    "text": "Tweets were filtered to remove retweets, @replies, and tweets with links, and both the Twitter and Amazon datasets were randomly split into 80% training and 20% testing sets.",
+    "chunk_ids": [
+     "1806.03369#10"
+    ],
+    "passage_numbers": [
+     5
+    ]
+   }
+  ],
+  "passages": [
+   {
+    "chunk_id": "1806.03369#19",
+    "section": "Results",
+    "text": "The results, including each of the training scenarios noted earlier, are presented in Table TABREF18 . Precision, recall, and F1 on the positive (sarcastic) class were recorded. The highest F1 achieved (0.780) among all cases was from training on the EasyAdapted Twitter and Amazon data. In comparison, training only on the Amazon reviews produced an F1 of 0.713 (training and testing only on Amazon reviews with our features but with the same classifier and cross-validation settings as BIBREF12 buschmeier-cimiano-klinger:2014:W14-26 led to an F1 of 0.752, outperforming prior best results on that dataset). Training on both without EasyAdapt led to an F1 of 0.595 (or 0.715 when training only on Amazon-specific features), and finally, training only on Twitter data led to an F1 of 0.276. Training and testing on Twitter produced an F1 of 0.583 when training on all features."
+   },
+   {
+    "chunk_id": "1806.03369#12",
+    "section": "Features",
+    "text": "Three feature sets were developed (one general, and two targeted toward Twitter and Amazon, respectively). Resources used to develop the features are described in Table TABREF9 . Five classifiers (Na\u00efve Bayes, J48, Bagging, DecisionTable, and SVM), all from the Weka library, were tested using five-fold cross-validation on the training sets, and the highest-scoring (Na\u00efve Bayes) was selected for use on the test set."
+   },
+   {
+    "chunk_id": "1806.03369#9",
+    "section": "Data Collection",
+    "text": "Data was taken from two domains: Twitter, and Amazon product reviews. The Amazon reviews were from the publicly available sarcasm corpus developed by Filatova FILATOVA12.661. To build our Twitter dataset, tweets containing exactly one of the trailing hashtags \u201c#sarcasm,\u201d \u201c#happiness,\u201d \u201c#sadness,\u201d \u201c#anger,\u201d \u201c#surprise,\u201d \u201c#fear,\u201d and \u201c#disgust\u201d were downloaded regularly during February and March 2016. Tweets containing the latter six hashtags, corresponding to Ekman's six basic emotions BIBREF14 , were labeled as non-sarcastic. Those hashtags were chosen because their associated tweets were expected to still express opinions, similarly to sarcastic tweets, but in a non-sarcastic way. Tweets containing #sarcasm were labeled as sarcastic; annotating tweets with the #sarcasm hashtag as such is consistent with the vast majority of prior work in the Twitter domain BIBREF6 , BIBREF2 , BIBREF15 , BIBREF3 , BIBREF5 , BIBREF8 , BIBREF10 ."
+   },
+   {
+    "chunk_id": "1806.03369#8",
+    "section": "Sarcasm Detection on Amazon Reviews",
+    "text": "Prior to the release of Filatova's dataset, BIBREF13 davidov-tsur-rappoport:2010:CONLL developed a semi-supervised approach to classify tweets or Amazon reviews as sarcastic or non-sarcastic by clustering samples based on grammatical features and the full or partial presence of automatically-extracted text patterns. They evaluated their work on a sample of the classified instances annotated by anonymous users on Amazon Mechanical Turk. They tested several different seed sets with their approach, one of which contained a mixture of positive Amazon reviews, positive #sarcasm-tagged tweets, and a manually-selected sample of negative tweets. Although they did not report test results on Amazon reviews using this seed set, they did report test results on #sarcasm-tagged tweets, achieving an F-measure of 0.545. Their work is the closest to ours, because it attempts to harness training samples from both the Twitter and Amazon review domains."
+   },
+   {
+    "chunk_id": "1806.03369#10",
+    "section": "Data Collection",
+    "text": "The downloaded tweets were filtered to remove retweets, \u201c@replies,\u201d and tweets containing links. Retweets were removed to avoid having duplicate copies of identical tweets in the dataset, @replies were removed in case the hashtag referred to content in the tweet to which it replied rather than content in the tweet itself, and tweets with links were likewise removed in case the hashtag referred to content in the link rather than in the tweet itself. Requiring that the specified hashtag trailed the rest of the tweet (it could only be followed by other hashtags) was done based on the observation that when sarcastic or emotional hashtags occur in the main tweet body, the tweet generally discusses sarcasm or the specified emotion, rather than actually expressing sarcasm or the specified emotion. Finally, requiring that only one of the specified hashtags trailed the tweet eliminated cases of ambiguity between sarcastic and non-sarcastic tweets. All trailing \u201c#sarcasm\u201d or emotion hashtags were removed from the data before training and testing, and both datasets were randomly divided into training (80%) and testing (20%) sets. Further details are shown"
+   }
+  ]
+ },
+ {
+  "question_id": "961a97149127e1123c94fbf7e2021eb1aa580ecb",
+  "doc_id": "1911.09247",
+  "title": "How to Ask Better Questions? A Large-Scale Multi-Domain Dataset for Rewriting Ill-Formed Questions",
+  "question": "What aspects are used to judge question quality?",
+  "label": "judged correct and faithful",
+  "reference_answers": [
+   "Is the question grammatically correct?; Is the spelling correct?; Is the question an explicit question, rather than a search query, a command, or a statement?",
+   "Is the question grammatically correct?; Is the spelling correct?; Is the question an explicit question"
+  ],
+  "abstain": false,
+  "answer": "Question quality is judged on three aspects: grammatical correctness, spelling correctness, and explicitness (whether the question ends with a question mark and is not a fragment/command/search query).",
+  "claims": [
+   {
+    "text": "Grammatical correctness is one aspect used to judge question quality.",
+    "chunk_ids": [
+     "1911.09247#6",
+     "1911.09247#10"
+    ],
+    "passage_numbers": [
+     3,
+     4
+    ]
+   },
+   {
+    "text": "Spelling correctness (including typos and missing question marks) is another aspect judged.",
+    "chunk_ids": [
+     "1911.09247#6",
+     "1911.09247#10"
+    ],
+    "passage_numbers": [
+     3,
+     4
+    ]
+   },
+   {
+    "text": "Explicitness\u2014whether the question is a full explicit question ending with a question mark rather than a command or fragment\u2014is also judged.",
+    "chunk_ids": [
+     "1911.09247#6"
+    ],
+    "passage_numbers": [
+     3
+    ]
+   }
+  ],
+  "passages": [
+   {
+    "chunk_id": "1911.09247#23",
+    "section": "Models and Experiments ::: Human Evaluation",
+    "text": "To better evaluate model performance, we conduct a human evaluation on the model rewritten questions following the same guidelines from the \u201cDataset Quality\u201d subsection. Among the 300 questions annotated earlier, we chose the ill-formed questions from the TEST split, which yields 75 questions. We evaluate questions rewritten by three methods (Transformer (MQR + Quora), GEC, and Transformer (MQR + Quora) $\\rightarrow $ GEC), and ask annotators to determine the qualities of the rewritten questions. To understand if question meanings change after rewriting, we also annotate whether a model rewritten question is semantically equivalent to the ill-formed question or equivalent to the well-formed one."
+   },
+   {
+    "chunk_id": "1911.09247#13",
+    "section": "MQR Dataset Construction and Analysis ::: Dataset Quality",
+    "text": "Table TABREF15 summarizes the human annotations of the quality of the DEVTEST portion of the MQR dataset. We summed up the binary scores from two annotators. There are clear differences between ill-formed and well-formed questions. Ill-formed question are indeed ill-formed and well-formed questions are generally of high quality. The average score over three aspects improves by 45 points from ill-formed to well-formed questions. Over 90% of the question pairs possess semantic equivalence, i.e., they do not introduce or delete information. Therefore, the vast majority of rewrites can be performed without extra information.\n\nThe Cohen's Kappa inter-rater reliability scores BIBREF27 are 0.83, 0.77, and 0.89 respectively for the question quality annotations, and 0.86 for question semantic equivalence. These values show good inter-rater agreement on the annotations of the qualities and semantic equivalences of the MQR question pairs."
+   },
+   {
+    "chunk_id": "1911.09247#6",
+    "section": "Task Definition: Question Rewriting",
+    "text": "Given a question $q_i$, potentially ill-formed, the question rewriting task is to convert it to a well-formed natural language question $q_w$ while preserving its semantics and intention. Following BIBREF0, we define a well-formed question as one satisfying the following constraints:\n\nThe question is grammatically correct. Common grammatical errors include misuse of third person singular or verb tense.\n\nThe question does not contain spelling errors. Spelling errors refer specifically to typos and other misspellings, but not to grammatical errors such as third person singular or tense misuse in verbs.\n\nThe question is explicit. A well-formed question must be explicit and end with a question mark. A command or search query-like fragment is not well-formed."
+   },
+   {
+    "chunk_id": "1911.09247#10",
+    "section": "MQR Dataset Construction and Analysis",
+    "text": "The lists of verbs and nouns between well-formed and ill-formed questions have a Jaccard similarity greater than 0.8 in DEV and TEST. We split DEV and TEST randomly and equally. This yields 2,112 instances in DEV and 2,113 instances in TEST.\n\nThe rest of the question edit pairs (423,495 instances) are placed in the TRAIN set.\n\nExamples are shown in Table TABREF2. We release our TRAIN/DEV/TEST splits of the MQR dataset to encourage research in question rewriting.\n\nTo understand the quality of the question rewriting examples in the MQR dataset, we ask human annotators to judge the quality of the questions in the DEV and TEST splits (abbreviated as DEVTEST onward). Specifically, we take both ill-formed and well-formed questions in DEVTEST and ask human annotators to annotate the following three aspects regarding each question BIBREF0:\n\nIs the question grammatically correct?\n\nIs the spelling correct? Misuse of third person singular or past tense in verbs are considered grammatical errors instead of spelling errors. Missing question mark in the end of a question is also considered as spelling errors."
+   },
+   {
+    "chunk_id": "1911.09247#24",
+    "section": "Models and Experiments ::: Human Evaluation",
+    "text": "Table TABREF33 shows the annotations from two annotators. When the two annotators disagree, a judge makes a final decision. Note that the examples annotated here are a subset of those annotated in Table TABREF15, so the first row is different from the ill-formed questions in Table TABREF15. According to the annotations, the GEC method slightly improves the question quality scores. Although Table TABREF30 shows that GEC improves the question quality by some automatic metrics, it simply corrects a few grammatical errors and the rewritten questions still do not meet the standards of human annotators. However, the GEC model is good at preserving question semantics.\n\nThe Transformer (MQR + Quora) model and Transformer (MQR + Quora) $\\rightarrow $ GEC excel at improving question quality in all three aspects, but they suffer from semantic drift. This suggests that future work should focus on solving the problem of semantic drift when building question rewriting models."
+   }
+  ]
+ },
+ {
+  "question_id": "622efbecd9350a0f4487bdff2b8b362ef2541f3c",
+  "doc_id": "1708.05521",
+  "title": "EmoAtt at EmoInt-2017: Inner attention sentence embedding for Emotion Intensity",
+  "question": "did the top teams experiment with lexicons?",
+  "label": "unanswerable question: the model abstained",
+  "reference_answers": [],
+  "abstain": true,
+  "answer": "Cannot answer from the provided passages.",
+  "claims": [],
+  "passages": [
+   {
+    "chunk_id": "1708.05521#6",
+    "section": "Experimental Setup",
+    "text": "Table TABREF3 summarizes the average, maximum and minimum sentence lengths for each dataset after we processed them with Twokenizer. We can see the four corpora offer similar characteristics in terms of length, with a cross dataset maximum length of 41 tokens. We also see there is an important vocabulary gap between the dataset and GloVe, with an average coverage of only 64.3 %. To tackle this issue, we used a set of binary features derived from POS tags to capture some of the semantics of the words that are not covered by the GloVe embeddings. We also include features for member mentions and hashtags as well as a feature to capture word elongation, based on regular expressions. Word elongation is very common in tweets, and is usually associated to strong sentiment. The following are the POS tag-derived rules we used to generate our binary features.\n\nWhile the structure of our introduced model allows us to easily include more linguistic features that could potentially improve our predictive power, such as lexicons, since our focus is to study sentence representation for emotion intensity, we do not experiment adding any additional sources of information as input."
+   },
+   {
+    "chunk_id": "1708.05521#14",
+    "section": "Conclusions",
+    "text": "In this paper we introduced an intra-sentence attention RNN for the of emotion intensity, which we developed for the WASSA-2017 Shared Task on Emotion Intensity. Our model does not make use of external information except for pre-trained embeddings and is able to outperform the Weka baseline for the development set, but not in the test set. In the shared task, it obtained the 13th place among 22 competitors."
+   },
+   {
+    "chunk_id": "1708.05521#5",
+    "section": "Experimental Setup",
+    "text": "To test our model, we experiment using the training, validation and test datasets provided for the shared task BIBREF5 , which include tweets for four emotions: joy, sadness, fear, and anger. These were annotated using Best-Worst Scaling (BWS) to obtain very reliable scores BIBREF6 .\n\nWe experimented with GloVe BIBREF7 as pre-trained word embedding vectors, for sizes 25, 50 and 100. These are vectors trained on a dataset of 2B tweets, with a total vocabulary of 1.2 M. To pre-process the data, we used Twokenizer BIBREF8 , which basically provides a set of curated rules to split the tweets into tokens. We also use Tweeboparser BIBREF9 to get the POS-tags for each tweet."
+   },
+   {
+    "chunk_id": "1708.05521#9",
+    "section": "Results and Discussion",
+    "text": "In this section we report the results of the experiments we performed to test our proposed model. In general, as Table TABREF13 shows, our intra-sentence attention RNN was able to outperform the Weka baseline BIBREF5 on the development dataset by a solid margin. Moreover, the model manages to do so without any additional resources, except pre-trained word embeddings. These results are, however, reversed for the test dataset, where our model performs worse than the baseline. This shows that the model is not able to generalize well, which we think is related to the missing semantic information due to the vocabulary gap we observed between the datasets and the GloVe embeddings."
+   },
+   {
+    "chunk_id": "1708.05521#2",
+    "section": "Introduction",
+    "text": "The task is specially challenging since tweets contain informal language, spelling errors and text referring to external content. Given the 140 character limit of tweets, it is also possible to find some phenomena such as the intensive usage of emoticons and of other special Twitter features, such as hashtags and usernames mentions \u2014used to call or notify other users. In this paper we describe our system designed for the WASSA-2017 Shared Task on Emotion Intensity, which we tackle based on the premise of representation learning without the usage of external information, such as lexicons. In particular, we use a Bi-LSTM model with intra-sentence attention on top of word embeddings to generate a tweet representation that is suitable for emotion intensity. Our results show that our proposed model offers interesting capabilities compared to approaches that do rely on external information sources."
+   }
+  ]
+ },
+ {
+  "question_id": "f6346828c2f44529dc307abf04dd246bfeb4a9b2",
+  "doc_id": "2004.04124",
+  "title": "LadaBERT: Lightweight Adaptation of BERT through Hybrid Model Compression",
+  "question": "Do they evaluate which compression method yields the most gains?",
+  "label": "judged only partially correct",
+  "reference_answers": [
+   "Yes",
+   "Yes",
+   "No",
+   "Yes"
+  ],
+  "abstain": false,
+  "answer": "No, they don't isolate the individual contribution of each compression technique; instead they only demonstrate that the hybrid combination (matrix factorization + weight pruning + knowledge distillation) outperforms baselines that use a single method.",
+  "claims": [
+   {
+    "text": "LadaBERT combines matrix factorization, weight pruning and knowledge distillation, and this combination achieves faster convergence and better performance than TinyBERT, which relies on pure knowledge distillation.",
+    "chunk_ids": [
+     "2004.04124#30"
+    ],
+    "passage_numbers": [
+     5
+    ]
+   },
+   {
+    "text": "The experiments report overall performance of the hybrid LadaBERT variants at different compression ratios compared to other full methods, rather than a breakdown of gains attributable to each individual compression technique.",
+    "chunk_ids": [
+     "2004.04124#29",
+     "2004.04124#25",
+     "2004.04124#2"
+    ],
+    "passage_numbers": [
+     1,
+     2,
+     3
+    ]
+   }
+  ],
+  "passages": [
+   {
+    "chunk_id": "2004.04124#29",
+    "section": "Experiments ::: Performance Comparison",
+    "text": "Moreover, Distilled-BiLSTM performs well on SST-2 dataset with more than $10 \\times $ compression ratio, perhaps owing to its advantage of generalization on small datasets. Nevertheless, the performance of LadaBERT-4 is competitive on larger datasets such as MNLI and QQP. This is impressive as LadaBERT is much more efficient without exhaustive re-training on a large corpus. In addition, the inference speed of BiLSTM is usually slower than transformer-based models with similar parameter sizes."
+   },
+   {
+    "chunk_id": "2004.04124#25",
+    "section": "Experiments ::: Setup",
+    "text": "We leverage the pre-trained checkpoint of base-bert-uncased as the initial model for compression, which contains 12 layers, 12 heads, 110M parameters, and 768 hidden units per layer. Hyper-parameter selection is conducted on the validation data for each dataset. After training, the prediction results are submitted to the GLUE-benchmark evaluation platform to get the evaluation performance on test data.\n\nFor a comprehensive evaluation, we experiment with four settings of LadaBERT, namely LadaBERT-1, -2, -3 and -4, which reduce the model parameters of BERT-Base by 2.5, 5, 7.5 and 10 times respectively. In our experiment, we take the batch size as 32, learning rate as 2e-5. The optimizer is BertAdam with default setting. Fine-grained compression ratios are optimized by random search and shown in Table TABREF38."
+   },
+   {
+    "chunk_id": "2004.04124#2",
+    "section": "Introduction",
+    "text": "in the knowledge distillation iterations, the accuracy and efficiency of model compression can be greatly improved.\n\nWe conduct extensive experiments on five public datasets of natural language understanding. As an example, the performance comparison of LadaBERT and state-of-the-art models on MNLI-m dataset is illustrated in Figure FIGREF1. We can see that LadaBERT outperforms other BERT-oriented model compression baselines at various model compression ratios. Especially, LadaBERT-1 outperforms BERT-PKD significantly under $2.5\\times $ compression ratio, and LadaBERT-3 outperforms TinyBERT under $7.5\\times $ compression ratio while the training speed is accelerated by an order of magnitude.\n\nThe rest of this paper is organized as follows. First, we summarizes the related works of model compression and their applications to BERT in Section SECREF2. Then, the methodology of LadaBERT is introduced in Section SECREF3, and experimental results are presented in Section SECREF4. At last, we conclude this work and discuss future works in Section SECREF5."
+   },
+   {
+    "chunk_id": "2004.04124#10",
+    "section": "Related Work ::: Hybrid approach",
+    "text": "To improve the performance of model compression, there are many attempts to conduct hybrid model compression method that combines more than one category of algorithms. Han et al. BIBREF27 combined quantization, hamming coding and weight pruning to conduct model compression on image classification tasks. Yu et al. BIBREF28 proposed a unified framework for low-rank and sparse decomposition of weight matrices with feature map reconstructions. Polino et al. BIBREF29 advocated a combination of distillation and quantization techniques and proposed two hybrid models, i.e., quantified distillation and differentiable quantization to address this problem. Li et al., BIBREF30 compressed DNN-based acoustic model through knowledge distillation and pruning. NNCF BIBREF31 provided a neural network compression framework that supported an integration of various model compression methods to generate more lightweight networks and achieved state-of-the-art performances in terms of a trade-off between accuracy and efficiency. In BIBREF32, an AutoML pipeline was adopted for model compression. It leveraged reinforcement learning to search for the best model compression strategy among multiple combinatorial configurations."
+   },
+   {
+    "chunk_id": "2004.04124#30",
+    "section": "Experiments ::: Learning curve comparison",
+    "text": "To further demonstrate the efficiency of LadaBERT, we visualize the learning curves on MNLI-m and QQP datasets in Figure FIGREF42 and FIGREF42, where LadaBERT-3 is compared to the strongest baseline, TinyBERT, under $7.5 \\times $ compression ratio. As shown in the figures, LadaBERT-3 achieves good performances much faster and results in a better convergence point. After training $2 \\times 10^4$ steps (batches) on MNLI-m dataset, the performance of LadaBERT-3 is already comparable to TinyBERT after convergence (approximately $2 \\times 10^5$ steps), achieving nearly $10 \\times $ acceleration. And on QQP dataset, both performance improvement and training speed acceleration is very significant. This clearly shows the superiority of combining matrix factorization, weight pruning and knowledge distillation in a reinforce manner. Instead, TinyBERT is based on pure knowledge distillation, so the learning speed is much slower."
+   }
+  ]
+ }
+]
