@@ -1,11 +1,18 @@
 # RAG Evaluation Harness — document intelligence over scientific papers
 
+[![CI](https://github.com/GFS418/rag-eval-harness/actions/workflows/ci.yml/badge.svg)](https://github.com/GFS418/rag-eval-harness/actions/workflows/ci.yml)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://rag-eval-harness-enlpi7prtwctye2692cupf.streamlit.app/)
+[![Model on HF](https://img.shields.io/badge/%F0%9F%A4%97%20Hub-bge--small--qasper--ft-yellow)](https://huggingface.co/GFS418/bge-small-qasper-ft)
+
+**▶ [Live demo](https://rag-eval-harness-enlpi7prtwctye2692cupf.streamlit.app/):** pick a
+paper, ask a question → grounded answer with per-claim citations and the retrieved
+passages. Eight pre-computed examples (including an abstention and a partially correct
+answer) cost nothing to view; typed questions call Claude Sonnet 5 live. *(Free tier sleeps
+when idle; give it a minute to wake.)*
+
 *Retrieval-augmented question answering with citations, and a quantitative
 evaluation harness that says how often it is right, how often it hallucinates,
 and which design choices matter, with confidence intervals.*
-
-> **Status:** complete on QASPER. Retrieval, generation, judge runs and human
-> validation of the judge are done; deployment is the remaining step.
 
 **The evaluation is the project; the RAG pipeline is table stakes.**
 
@@ -262,7 +269,7 @@ src/finetune/      hard-negative triples from the train split; contrastive fine-
 scripts/           run_retrieval, run_generation, run_judge, summarize_retrieval,
                    label_ui (human labelling), judge_agreement (kappa)
 tests/             chunking, adapter, metrics, stats, index, generation, leakage guard
-app.py             Streamlit demo
+app.py             Streamlit demo (deployed; model + index from the HF Hub)
 ```
 
 Reproduce: `pip install -r requirements-project.txt`; QASPER v0.3 downloads itself into

@@ -175,7 +175,13 @@ with tab_live:
         if spend_today() >= CFG["daily_cap_usd"]:
             note = "Daily spend cap reached; showing retrieval only."
         elif not api_key_available():
-            note = "No API key configured; showing retrieval only."
+            try:
+                has_store = len(list(st.secrets.keys())) > 0
+            except Exception:
+                has_store = False
+            note = ("No API key configured; showing retrieval only. "
+                    + ("A secrets store exists but has no ANTHROPIC_API_KEY entry." if has_store
+                       else "No secrets store found (set ANTHROPIC_API_KEY in the app's Secrets settings)."))
         else:
             with st.spinner("Generating grounded answer..."):
                 resp = call(build_request(inp, CFG["model"], "app"), Cache(Path("data/cache/app_llm.sqlite")))
