@@ -4,8 +4,8 @@
 evaluation harness that says how often it is right, how often it hallucinates,
 and which design choices matter, with confidence intervals.*
 
-> **Status:** retrieval, generation and judge runs complete on the test split.
-> Human validation of the judge (Cohen's kappa) is the remaining step.
+> **Status:** complete on QASPER. Retrieval, generation, judge runs and human
+> validation of the judge are done; deployment is the remaining step.
 
 **The evaluation is the project; the RAG pipeline is table stakes.**
 
@@ -28,7 +28,10 @@ _(filled in from `reports/` when the test-split runs complete)_
   Sentence-level NLI does not transfer to paragraph-length evidence; only the validated judge is reported.
 - **Fine-tuned embedding (test):** **+0.149** recall@1024 tokens over the same model off the shelf,
   paired bootstrap CI [+0.127, +0.171]; +0.070 [+0.065, +0.075] pooled over all chunkings and scopes.
-- **Judge validation:** Cohen's kappa vs 100 human labels = TBD
+- **Judge validation:** 100 answers labelled blind by a human under the judge's rubric. Correctness
+  kappa **0.73** [0.54, 0.88] (92% agreement, no correct-vs-incorrect swaps); faithfulness agreement 98%,
+  with the judge *stricter* than the human (5 vs 2 unsupported claims out of 299). The NLI instrument
+  agrees with the human at kappa 0.01.
 
 ## What this is
 
@@ -207,6 +210,40 @@ short oracle paragraphs), which is a property of the model, not of the answers.
 Sentence-pair NLI does not transfer to multi-paragraph evidence. The judge is
 therefore the only faithfulness number reported, and it is validated against
 human labels below.
+
+## Finding 7: the judge agrees with a human, and errs on the strict side
+
+One human (the author) labelled 100 randomly sampled primary-arm answers,
+blind to the judge's verdicts, under the same rubric the judge was prompted
+with (`reports/labeling_rubric.md`, including the tie-break rules that came up).
+Every claim was checked against the passages the model actually saw, ~300
+claims in all.
+
+| Comparison | Cohen's kappa [95% CI] | Agreement | n |
+|---|---|---|---|
+| Correctness, 3-class (correct / partial / incorrect): human vs Opus 5 judge | **0.73** [0.54, 0.88] | 0.92 | 100 |
+| Correctness, correct-vs-not: human vs Opus 5 judge | **0.79** [0.59, 0.93] | 0.94 | 100 |
+| Faithfulness: human vs Opus 5 judge | 0.66 (CI not estimable) | 0.98 | 100 |
+| Faithfulness: human vs NLI cross-encoder | 0.01 [0.00, 0.03] | 0.23 | 100 |
+
+- **Correctness.** Human and judge produced the same marginal distribution
+  (83 correct each; 10 vs 12 partial; 7 vs 5 incorrect). All eight
+  disagreements are one step apart on the scale, three in each direction
+  between correct and partial and two where the human said incorrect and the
+  judge said partial. No answer was called correct by one and incorrect by the
+  other. The headline correctness rate would be identical under human grading.
+- **Faithfulness.** Unsupported claims are rare enough (2% of claims by the
+  human) that kappa is unstable; the informative statement is the count. Of 299
+  claims the human found 2 unsupported; the judge found those 2 plus 3 more.
+  So the same-family leniency concern did not materialise here: the judge is
+  the stricter grader, and the 93% faithful figure is, if anything, a lower
+  bound.
+- **NLI.** Confirms Finding 6 against a human rather than against the judge:
+  the cross-encoder calls 79% of human-faithful answers unsupported.
+
+Caveat: a single labeller who also built the system, 100 items, and a
+low base rate of unfaithfulness. The kappa CI is wide at the low end (0.54),
+which is "moderate" agreement; the point estimate is "substantial".
 
 ## Repository
 
